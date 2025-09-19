@@ -118,7 +118,7 @@
       .card { grid-column: span 12 }
       .statbar { grid-template-columns: 1fr 1fr }
     }
-      .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 16px }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 16px }
     .btn.active { outline: 2px solid rgba(245,158,11,0.75) }
     .btn { padding: 10px 14px; font-size: 0.95rem }
     .actions { gap: 10px }
@@ -147,7 +147,7 @@
         <a href="#projects">Projects</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <a href="/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" class="btn" rel="noopener">Resume</a>
+        <a href="assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" class="btn" rel="noopener">Resume</a>
       </nav>
     </div>
   </header>
@@ -167,7 +167,7 @@
       </div>
       <div class="hero-card">
         <div class="thumb" aria-label="featured project image">
-          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%230b1220'/><stop offset='1' stop-color='%2310213a'/></linearGradient></defs><rect fill='url(%23g)' width='1600' height='900'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-family='Inter,Arial,sans-serif' font-size='44'>Hero image placeholder</text></svg>" alt="Hero image representing XR and game design" />
+          <img src="assets/xr-proto.jpg" alt="Hero image representing XR and game design" />
         </div>
         <div class="statbar">
           <div class="stat"><strong>4</strong><span>playable builds</span></div>
@@ -231,9 +231,9 @@
         <p>Download or view in browser</p>
       </div>
       <div class="panel">
-        <a class="btn" href="/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" target="_blank" rel="noopener">Download resume PDF</a>
-        <object data="/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" type="application/pdf" width="100%" height="480">
-          <p>Your browser can display the PDF; you can also <a href="/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" target="_blank" rel="noopener">open it here</a></p>
+        <a class="btn" href="assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" target="_blank" rel="noopener">Download resume PDF</a>
+        <object data="assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" type="application/pdf" width="100%" height="480">
+          <p>Your browser can display the PDF; you can also <a href="assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" target="_blank" rel="noopener">open it here</a></p>
         </object>
       </div>
     </section>
@@ -259,15 +259,11 @@
     </div>
   </footer>
 
-  <!-- Example itch embed. Replace slug with your game page, or use a Play link instead.
-  <iframe src="https://itch.io/embed/123456" width="552" height="167" frameborder="0"><a href="https://lauren-thoman.itch.io/your-game">Play on itch</a></iframe>
-  -->
-
   <script>
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const PLACEHOLDER = 'data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1600\" height=\"900\" viewBox=\"0 0 1600 900\"><defs><linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop stop-color=\"%230b1220\"/><stop offset=\"1\" stop-color=\"%2310213a\"/></linearGradient></defs><rect fill=\"url(%23g)\" width=\"1600\" height=\"900\"/><text x=\"50%25\" y=\"50%25\" dominant-baseline=\"middle\" text-anchor=\"middle\" fill=\"%2394a3b8\" font-family=\"Inter,Arial,sans-serif\" font-size=\"32\">Project cover</text></svg>';
+    const PLACEHOLDER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="%230b1220"/><stop offset="1" stop-color="%2310213a"/></linearGradient></defs><rect fill="url(%23g)" width="1600" height="900"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%2394a3b8" font-family="Inter,Arial,sans-serif" font-size="32">Project cover</text></svg>';
 
     // Project data
     const projects = [
@@ -276,7 +272,7 @@
         title: 'Puzzle Parkour, CTIN 489',
         blurb: 'Unity puzzle platformer, vertical slice for one level with parkour and window washing minigames.',
         milestone: 'Title screen, art assets for the main character and items, level design, menu UI, narrative design.',
-        cover: '/assets/puzzle-parkour.jpg',
+        cover: 'assets/puzzle-parkour.jpg',
         tags: ['Unity', 'C#', 'Design'],
         categories: ['current','games'],
         status: 'current',
@@ -287,7 +283,7 @@
         title: 'XR Prototype, IDSN course',
         blurb: 'Design phase, planning an XR prototype for Apple Vision Pro or Quest using Unity and Xcode.',
         milestone: 'Design in progress, builds to follow.',
-        cover: '/assets/xr-proto.jpg',
+        cover: 'assets/xr-proto.jpg',
         tags: ['XR', 'Unity', 'Xcode'],
         categories: ['current','xr'],
         status: 'current',
@@ -298,7 +294,7 @@
       {
         title: 'Interactive Comedy Sound Board',
         blurb: 'Playful Unity prototype that turns button presses into tiny performances with juicy feedback.',
-        cover: '/assets/comedy-soundboard.jpg',
+        cover: 'assets/comedy-soundboard.jpg',
         tags: ['Unity', 'Prototype'],
         categories: ['games'],
         status: 'past',
@@ -308,7 +304,7 @@
       {
         title: 'Pillow Fight V 1.0, CTIN 489',
         blurb: 'Whimsical driving prototype, crash into obstacles for playful and chaotic feedback, designed for quick iteration in class.',
-        cover: '/assets/pillow-fight.jpg',
+        cover: 'assets/pillow-fight.jpg',
         tags: ['Unity', 'Prototype'],
         categories: ['games'],
         status: 'past',
@@ -318,7 +314,7 @@
       {
         title: 'Coastal Keepers, Climate Jam',
         blurb: 'Team project for IndieCade Climate Jam, tower defense with community resilience theme, shipped Windows build.',
-        cover: '/assets/ck-cover.jpg',
+        cover: 'assets/ck-cover.jpg',
         tags: ['Unity', 'Windows', 'Jam'],
         categories: ['games'],
         status: 'past',
@@ -328,7 +324,7 @@
       {
         title: '3D Animation project',
         blurb: 'Modeled, textured, rigged, animated in Maya, rendered a character scene.',
-        cover: '/assets/animation-3d.jpg',
+        cover: 'assets/animation-3d.jpg',
         tags: ['Maya', 'Animation'],
         categories: ['animation'],
         status: 'past',
@@ -338,7 +334,7 @@
       {
         title: 'XR technology concept',
         blurb: 'Interaction concepts and storyboards, Figma community file linked.',
-        cover: '/assets/xr-concept.jpg',
+        cover: 'assets/xr-concept.jpg',
         tags: ['XR', 'Design'],
         categories: ['xr'],
         status: 'past',
@@ -348,7 +344,7 @@
       {
         title: 'Short film',
         blurb: 'Short film to bring awareness to teen mental health and social media, focus on narrative pacing and music choices.',
-        cover: '/assets/short-film.jpg',
+        cover: 'assets/short-film.jpg',
         tags: ['Film', 'Editing'],
         categories: ['film'],
         status: 'past',
@@ -358,7 +354,7 @@
       {
         title: 'Entrepreneurship products',
         blurb: 'Concept to listing, design and launch of small products and visuals.',
-        cover: '/assets/entrepreneurship.jpg',
+        cover: 'assets/entrepreneurship.jpg',
         tags: ['Design', 'Product'],
         categories: ['entrepreneurship'],
         status: 'past',
@@ -368,7 +364,7 @@
       {
         title: 'Order Up, CTIN 488',
         blurb: 'Board game, team of five, selected as a top three project by faculty, tabletop iteration and balance.',
-        cover: '/assets/order-up.jpg',
+        cover: 'assets/order-up.jpg',
         tags: ['Board game', 'Design'],
         categories: ['boardgame'],
         status: 'past',
@@ -378,7 +374,7 @@
       {
         title: 'NOT ME!, CTIN 488',
         blurb: 'Murder mystery party game where players point fingers at each other, tabletop social deduction; main designer, led physical assets and graphic design.',
-        cover: '/assets/not-me.jpg',
+        cover: 'assets/not-me.jpg',
         tags: ['Board game', 'Party', 'Design', 'Graphic'],
         categories: ['boardgame'],
         status: 'past',
