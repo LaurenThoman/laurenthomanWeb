@@ -167,7 +167,14 @@
       </div>
       <div class="hero-card">
         <div class="thumb" aria-label="featured project image">
-          <img src="assets/hero-img.jpg" alt="Hero image representing XR and game design" />
+          <img
+            src="assets/hero-img.jpg?v=1"
+            alt="Hero image representing XR and game design"
+            fetchpriority="high"
+            width="1600"
+            height="900"
+            onerror="this.src='assets/xr-proto.jpg'"
+          />
         </div>
         <div class="statbar">
           <div class="stat"><strong>4</strong><span>playable builds</span></div>
