@@ -15,10 +15,9 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="author" content="Lauren Thoman" />
   <meta name="theme-color" content="#0ea5e9" />
-  <link rel="icon" href="favicon.ico" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <style>
-    /* styles unchanged */
     :root {
       --bg: #0b1220;
       --panel: #0f172a;
@@ -34,30 +33,105 @@
     }
     * { box-sizing: border-box }
     html, body { height: 100% }
-    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: radial-gradient(1200px 800px at 70% -10%, rgba(14,165,233,0.2), transparent 60%), radial-gradient(900px 600px at 0% 0%, rgba(34,211,238,0.12), transparent 60%), var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 70% -10%, rgba(14,165,233,0.2), transparent 60%),
+                  radial-gradient(900px 600px at 0% 0%, rgba(34,211,238,0.12), transparent 60%),
+                  var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
     a { color: var(--accent); text-decoration: none }
     a:hover { text-decoration: underline }
+
     .container { width: min(1100px, 92%); margin: 0 auto }
-    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px); background: rgba(11,18,32,0.8); border-bottom: 1px solid var(--stroke); }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,18,32,0.8);
+      border-bottom: 1px solid var(--stroke);
+    }
     .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 0 }
     .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: 0.3px }
-    .brand-badge { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--accent)); box-shadow: 0 6px 20px rgba(34,211,238,0.35), 0 0 0 2px rgba(245,158,11,0.3); font-weight: 800; color: #051019; }
+    .brand-badge {
+      width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      box-shadow: 0 6px 20px rgba(34,211,238,0.35), 0 0 0 2px rgba(245,158,11,0.3);
+      font-weight: 800; color: #051019;
+    }
     .menu { display: flex; gap: 20px }
     .menu a { color: var(--text); opacity: 0.9 }
+
+    .skip { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden }
+    .skip:focus { left: 12px; top: 12px; width: auto; height: auto; padding: 8px 12px; background: #fff; color: #000; border-radius: 6px }
+
     .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; padding: 56px 0 36px }
     .hero h1 { font-size: clamp(30px, 4vw, 44px); line-height: 1.12; margin: 0 0 12px }
     .kicker { color: var(--orange); font-weight: 600; letter-spacing: 0.3px }
     .lead { color: var(--muted); font-size: 1.05rem }
     .actions { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap }
-    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 999px; border: 1px solid var(--stroke); background: #0c1628; color: var(--text); text-decoration: none; transition: transform .08s ease, background .2s ease, border-color .2s ease; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 999px;
+      border: 1px solid var(--stroke); background: #0c1628; color: var(--text); text-decoration: none;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+    }
     .btn:hover { transform: translateY(-1px); border-color: rgba(245,158,11,0.55) }
     .btn.primary { background: linear-gradient(135deg, var(--brand), var(--orange)); color: #061017; font-weight: 700; border: none }
+
     .hero-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); border: 1px solid var(--stroke); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow) }
     .statbar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px }
     .stat { background: var(--card); border: 1px solid var(--stroke); border-radius: 12px; padding: 14px }
-    .stat strong { display: block; font-size: 1.2rem; color: var(--orange); }
+    .stat strong { display: block; font-size: 1.2rem }
     .stat span { color: var(--muted); font-size: 0.92rem }
-    /* rest of styles unchanged */
+
+    section { padding: 36px 0 }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 12px }
+    .section-head h2 { margin: 0; font-size: clamp(22px, 2.4vw, 28px) }
+    .section-head p { margin: 0; color: var(--muted) }
+
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px }
+    .card { grid-column: span 4; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); border: 1px solid var(--stroke); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; min-height: 320px }
+    .thumb { position: relative; aspect-ratio: 16 / 9 }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block }
+    .card-body { padding: 14px }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 8px }
+    .tag { font-size: 12px; color: var(--orange); background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.28); padding: 4px 8px; border-radius: 999px }
+    .card h3 { margin: 0 0 6px; font-size: 1.05rem }
+    .card p { margin: 0 0 10px; color: var(--muted) }
+    .card .links { margin-top: auto; display: flex; gap: 10px; padding: 0 14px 14px }
+
+    .about { display: grid; grid-template-columns: 1fr 1fr; gap: 20px }
+    .panel { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); border: 1px solid var(--stroke); border-radius: 14px; padding: 18px }
+
+    footer { border-top: 1px solid var(--stroke); padding: 24px 0; color: var(--muted) }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr }
+      .about { grid-template-columns: 1fr }
+      .card { grid-column: span 6 }
+    }
+    @media (max-width: 640px) {
+      .menu { display: none }
+      .card { grid-column: span 12 }
+      .statbar { grid-template-columns: 1fr 1fr }
+    }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 16px }
+    .btn.active { outline: 2px solid rgba(245,158,11,0.75) }
+    .btn { padding: 10px 14px; font-size: 0.95rem }
+    .actions { gap: 10px }
+    .btn.primary { font-weight: 600 }
+    .milestone { color: var(--muted); font-size: 0.92rem }
+    .footnote { color: var(--muted); font-size: 0.85rem }
+    .tag:hover { border-color: rgba(245,158,11,0.6); color: var(--orange) }
+    .thumb::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.18)); pointer-events: none }
+    .menu a:hover { color: var(--orange) }
+    .section-head h2::after { content: ""; display: block; width: 72px; height: 3px; background: linear-gradient(90deg, var(--orange), transparent); margin-top: 8px; border-radius: 999px }
+    .card:hover { border-color: rgba(245,158,11,0.55); box-shadow: 0 10px 30px rgba(245,158,11,0.08) }
+    .about .panel ul { margin: 0; padding-left: 18px }
+    .about .panel li { margin: 6px 0 }
   </style>
 </head>
 <body>
@@ -92,7 +166,7 @@
       </div>
       <div class="hero-card">
         <div class="thumb" aria-label="featured project image">
-          <img src="assets/hero-img.jpg?v=1" alt="Hero image representing XR and game design" fetchpriority="high" width="1600" height="900" />
+          <img src="assets/hero-img.jpg" alt="Hero image representing XR and game design" />
         </div>
         <div class="statbar">
           <div class="stat"><strong>4</strong><span>playable builds</span></div>
@@ -102,39 +176,283 @@
       </div>
     </section>
 
-    <!-- rest of your sections unchanged (current, projects, about, resume, contact) -->
-
-    <footer>
-      <div class="container">
-        <p>© <span id="year"></span> Lauren Thoman. All rights reserved.</p>
-        <p class="footnote">Designed and coded by Lauren Thoman, with the help of AI.</p>
+    <section id="current">
+      <div class="section-head">
+        <h2>Currently building</h2>
+        <p>Active coursework, prototypes, experiences</p>
       </div>
-    </footer>
+      <div class="grid" id="current-grid" aria-live="polite"></div>
+    </section>
 
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-      /* project rendering script unchanged */
-    </script>
+    <section id="projects">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <p>Playable builds, code, writeups</p>
+      </div>
+      <div class="filters" role="tablist" aria-label="Project filters">
+        <button class="btn active" data-filter="all" aria-selected="true">All</button>
+        <button class="btn" data-filter="games">Games</button>
+        <button class="btn" data-filter="xr">XR</button>
+        <button class="btn" data-filter="animation">Animation</button>
+        <button class="btn" data-filter="film">Film</button>
+        <button class="btn" data-filter="entrepreneurship">Entrepreneurship</button>
+        <button class="btn" data-filter="boardgame">Board games</button>
+      </div>
+      <div class="grid" id="project-grid" aria-live="polite"></div>
+    </section>
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Lauren Thoman",
-      "url": "https://laurenthoman.dev/",
-      "sameAs": [
-        "https://www.linkedin.com/in/laurenathoman",
-        "https://lauren-thoman.itch.io",
-        "https://github.com/laurenthoman"
-      ],
-      "email": "mailto:laurenathoman@gmail.com",
-      "jobTitle": "Game Developer",
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "University of Southern California"
-      }
-    }
-    </script>
+    <section id="about" class="about">
+      <div class="panel">
+        <h2>About</h2>
+        <p>I am a USC Computer Science Games student, expected May 2027; I design and code in Unity and Unreal; I focus on gameplay programming, XR, UI and UX. Past work includes Unity games and prototypes, board games, 3D animation, a short film, and entrepreneurship projects; I completed a summer game design internship with IndieCade where I built Unity systems and delivered a playable build on schedule.</p>
+        <ul>
+          <li>Engines: Unity, Unreal Engine, UEFN</li>
+          <li>Languages: C#, C++, Python, JavaScript, HTML</li>
+          <li>Tools: Xcode, Git, GitHub</li>
+          <li>Creative: Maya, Blender, Figma, Photoshop, Affinity Designer, Affinity Photo, Procreate, Canva, Inkscape, Onshape</li>
+          <li>Focus: XR, spatial design, gameplay programming, prototyping</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Currently exploring</h3>
+        <ul>
+          <li><strong>IDSN 538, VisionOS prototype:</strong> Unity six point two with PolySpatial, target VisionOS twenty six, simulate on Apple Vision Pro in lab, build with Xcode.</li>
+          <li><strong>CTIN 489, Puzzle Parkour:</strong> vertical slice for one level, parkour feel, window washing minigames, title screen, menu UI, narrative and art.</li>
+        </ul>
+        <h3 style="margin-top:12px">Recognition</h3>
+        <p>Indie jam showcases, campus demo days, community features.</p>
+      </div>
+    </section>
+
+    <section id="resume">
+      <div class="section-head">
+        <h2>Resume</h2>
+        <p>Download or view in browser</p>
+      </div>
+      <div class="panel">
+        <a class="btn" href="assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" target="_blank" rel="noopener">Download resume PDF</a>
+        <object data="assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" type="application/pdf" width="100%" height="480">
+          <p>Your browser can display the PDF; you can also <a href="assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" target="_blank" rel="noopener">open it here</a></p>
+        </object>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head">
+        <h2>Contact</h2>
+        <p>Reach out for internships, collaborations, playtests</p>
+      </div>
+      <div class="panel">
+        <p>Email: <a href="mailto:laurenathoman@gmail.com">laurenathoman@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/laurenathoman" target="_blank" rel="noopener">linkedin.com/in/laurenathoman</a></p>
+        <p>itch: <a href="https://lauren-thoman.itch.io/" target="_blank" rel="noopener">lauren thoman itch page</a></p>
+        <p>GitHub: <a href="https://github.com/laurenthoman" target="_blank" rel="noopener">github.com/laurenthoman</a></p>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Lauren Thoman. All rights reserved.</p>
+      <p class="footnote">Designed and coded by Lauren Thoman, with the help of AI.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const PLACEHOLDER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="%230b1220"/><stop offset="1" stop-color="%2310213a"/></linearGradient></defs><rect fill="url(%23g)" width="1600" height="900"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%2394a3b8" font-family="Inter,Arial,sans-serif" font-size="32">Project cover</text></svg>';
+
+    // Project data
+    const projects = [
+      // Current work
+      {
+        title: 'Puzzle Parkour, CTIN 489',
+        blurb: 'Unity puzzle platformer, vertical slice for one level with parkour and window washing minigames.',
+        milestone: 'Title screen, art assets for the main character and items, level design, menu UI, narrative design.',
+        cover: 'assets/puzzle-parkour.jpg',
+        tags: ['Unity', 'C#', 'Design'],
+        categories: ['current','games'],
+        status: 'current',
+        play: '',
+        code: ''
+      },
+      {
+        title: 'XR Prototype, IDSN course',
+        blurb: 'Design phase, planning an XR prototype for Apple Vision Pro or Quest using Unity and Xcode.',
+        milestone: 'Design in progress, builds to follow.',
+        cover: 'assets/xr-proto.jpg',
+        tags: ['XR', 'Unity', 'Xcode'],
+        categories: ['current','xr'],
+        status: 'current',
+        play: '',
+        code: ''
+      },
+      // Past work
+      {
+        title: 'Interactive Comedy Sound Board',
+        blurb: 'Playful Unity prototype that turns button presses into tiny performances with juicy feedback.',
+        cover: 'assets/comedy-soundboard.jpg',
+        tags: ['Unity', 'Prototype'],
+        categories: ['games'],
+        status: 'past',
+        play: 'https://lauren-thoman.itch.io/interactive-comedy-sound-board',
+        code: ''
+      },
+      {
+        title: 'Pillow Fight V 1.0, CTIN 489',
+        blurb: 'Whimsical driving prototype, crash into obstacles for playful and chaotic feedback, designed for quick iteration in class.',
+        cover: 'assets/pillow-fight.jpg',
+        tags: ['Unity', 'Prototype'],
+        categories: ['games'],
+        status: 'past',
+        play: 'https://lauren-thoman.itch.io/pillow-fight-prototype',
+        code: ''
+      },
+      {
+        title: 'Coastal Keepers, Climate Jam',
+        blurb: 'Team project for IndieCade Climate Jam, tower defense with community resilience theme, shipped Windows build.',
+        cover: 'assets/ck-cover.jpg',
+        tags: ['Unity', 'Windows', 'Jam'],
+        categories: ['games'],
+        status: 'past',
+        play: 'https://cmoll24.itch.io/coastal-keepers',
+        code: ''
+      },
+      {
+        title: '3D Animation project',
+        blurb: 'Modeled, textured, rigged, animated in Maya, rendered a character scene.',
+        cover: 'assets/animation-3d.jpg',
+        tags: ['Maya', 'Animation'],
+        categories: ['animation'],
+        status: 'past',
+        play: '',
+        code: ''
+      },
+      {
+        title: 'XR technology concept',
+        blurb: 'Interaction concepts and storyboards, Figma community file linked.',
+        cover: 'assets/xr-concept.jpg',
+        tags: ['XR', 'Design'],
+        categories: ['xr'],
+        status: 'past',
+        play: 'https://www.figma.com/community/file/1545516247774060030',
+        code: ''
+      },
+      {
+        title: 'Short film',
+        blurb: 'Short film to bring awareness to teen mental health and social media, focus on narrative pacing and music choices.',
+        cover: 'assets/short-film.jpg',
+        tags: ['Film', 'Editing'],
+        categories: ['film'],
+        status: 'past',
+        play: 'https://www.youtube.com/watch?v=GYUyDXAw8JQ',
+        code: ''
+      },
+      {
+        title: 'Entrepreneurship products',
+        blurb: 'Concept to listing, design and launch of small products and visuals.',
+        cover: 'assets/entrepreneurship.jpg',
+        tags: ['Design', 'Product'],
+        categories: ['entrepreneurship'],
+        status: 'past',
+        play: '',
+        code: ''
+      },
+      {
+        title: 'Order Up, CTIN 488',
+        blurb: 'Board game, team of five, selected as a top three project by faculty, tabletop iteration and balance.',
+        cover: 'assets/order-up.jpg',
+        tags: ['Board game', 'Design'],
+        categories: ['boardgame'],
+        status: 'past',
+        play: '',
+        code: ''
+      },
+      {
+        title: 'NOT ME!, CTIN 488',
+        blurb: 'Murder mystery party game where players point fingers at each other, tabletop social deduction; main designer, led physical assets and graphic design.',
+        cover: 'assets/not-me.jpg',
+        tags: ['Board game', 'Party', 'Design', 'Graphic'],
+        categories: ['boardgame'],
+        status: 'past',
+        play: '',
+        code: ''
+      }
+    ];
+
+    const currentGrid = document.getElementById('current-grid');
+    const projectGrid = document.getElementById('project-grid');
+
+    function renderCards(container, items) {
+      container.innerHTML = '';
+      items.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="thumb"><img src="${p.cover || PLACEHOLDER}" alt="${p.title} cover" loading="lazy" onerror="this.src=PLACEHOLDER"></div>
+          <div class="card-body">
+            <h3>${p.title}</h3>
+            <div class="tags">${(p.tags || []).map(t => `<span class='tag'>${t}</span>`).join('')}</div>
+            <p>${p.blurb}</p>
+            ${p.milestone ? `<p class="milestone"><strong>Milestone:</strong> ${p.milestone}</p>` : ''}
+          </div>
+          <div class="links">
+            ${p.play ? `<a class="btn" href="${p.play}" target="_blank" rel="noopener">Play</a>` : ''}
+            ${p.code ? `<a class="btn" href="${p.code}" target="_blank" rel="noopener">Code</a>` : ''}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderCurrent() {
+      const items = projects.filter(p => p.status === 'current');
+      renderCards(currentGrid, items);
+    }
+
+    function renderProjects(filter = 'all') {
+      let items = projects.filter(p => p.status !== 'current');
+      if (filter !== 'all') {
+        items = items.filter(p => p.categories && p.categories.includes(filter));
+      }
+      renderCards(projectGrid, items);
+    }
+
+    // Filters
+    document.querySelectorAll('.filters [data-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filters .btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.getAttribute('data-filter');
+        renderProjects(f);
+      });
+    });
+
+    // First render
+    renderCurrent();
+    renderProjects('all');
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Lauren Thoman",
+    "url": "https://laurenthoman.dev/",
+    "sameAs": [
+      "https://www.linkedin.com/in/laurenathoman",
+      "https://lauren-thoman.itch.io",
+      "https://github.com/laurenthoman"
+    ],
+    "email": "mailto:laurenathoman@gmail.com",
+    "jobTitle": "Game Developer",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Southern California"
+    }
+  }
+  </script>
 </body>
 </html>
