@@ -111,7 +111,7 @@
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr }
       .about { grid-template-columns: 1fr }
-      .card { grid-column: span 6 }
+      <card { grid-column: span 6 }>
     }
     @media (max-width: 640px) {
       .menu { display: none }
@@ -275,7 +275,7 @@
         tags: ['Unity', 'C#', 'Design'],
         categories: ['current','games'],
         status: 'current',
-        play: '',
+        play: 'https://www.linkedin.com/in/laurenathoman/details/projects/',
         code: ''
       },
       {
@@ -286,7 +286,7 @@
         tags: ['XR', 'Unity', 'Xcode'],
         categories: ['current','xr'],
         status: 'current',
-        play: '',
+        play: 'https://www.linkedin.com/in/laurenathoman/details/projects/',
         code: ''
       },
       // Past work
@@ -327,7 +327,7 @@
         tags: ['Maya', 'Animation'],
         categories: ['animation'],
         status: 'past',
-        play: '',
+        play: 'https://www.youtube.com/watch?v=zI36qLSJfmU',
         code: ''
       },
       {
@@ -357,7 +357,7 @@
         tags: ['Design', 'Product'],
         categories: ['entrepreneurship'],
         status: 'past',
-        play: '',
+        play: 'https://www.linkedin.com/in/laurenathoman/details/projects/',
         code: ''
       },
       {
@@ -367,7 +367,7 @@
         tags: ['Board game', 'Design'],
         categories: ['boardgame'],
         status: 'past',
-        play: '',
+        play: 'https://www.linkedin.com/in/laurenathoman/details/projects/',
         code: ''
       },
       {
@@ -377,7 +377,7 @@
         tags: ['Board game', 'Party', 'Design', 'Graphic'],
         categories: ['boardgame'],
         status: 'past',
-        play: '',
+        play: 'https://www.linkedin.com/in/laurenathoman/details/projects/',
         code: ''
       }
     ];
@@ -399,7 +399,7 @@
             ${p.milestone ? `<p class="milestone"><strong>Milestone:</strong> ${p.milestone}</p>` : ''}
           </div>
           <div class="links">
-            ${p.play ? `<a class="btn" href="${p.play}" target="_blank" rel="noopener">Play</a>` : ''}
+            ${p.play ? `<a class="btn" href="${p.play}" target="_blank" rel="noopener">View</a>` : ''}
             ${p.code ? `<a class="btn" href="${p.code}" target="_blank" rel="noopener">Code</a>` : ''}
           </div>
         `;
