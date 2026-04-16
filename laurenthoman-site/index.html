@@ -151,10 +151,10 @@ body{background:var(--cream);color:var(--brown);font-family:'DM Sans',sans-serif
 .po-nav{position:sticky;top:0;z-index:10;padding:18px 60px;background:rgba(252,244,227,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(46,31,20,.1);display:flex;align-items:center;}
 .po-back{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;background:none;border:none;color:rgba(46,31,20,.5);display:flex;align-items:center;gap:6px;transition:color .2s;}
 .po-back:hover{color:var(--brown);}
-.po-cover{width:100%;aspect-ratio:16/9;background:rgba(46,31,20,.06);position:relative;overflow:hidden;}
+.po-cover{width:100%;aspect-ratio:21/9;background:rgba(46,31,20,.06);position:relative;overflow:hidden;}
 .po-cover-inner{position:absolute;inset:0;background:linear-gradient(145deg,#0A1428,#040810);}
 .po-cover-grad{position:absolute;inset:0;background:linear-gradient(to top,var(--cream) 0%,transparent 55%);z-index:1;}
-.po-meta{padding:0 60px;margin-top:-20px;position:relative;z-index:2;}
+.po-meta{padding:0 60px;margin-top:-48px;position:relative;z-index:2;}
 .po-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(46,31,20,.45);margin-bottom:10px;}
 .po-title{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,72px);font-weight:900;letter-spacing:-.03em;line-height:.92;color:var(--brown);margin-bottom:10px;}
 .po-role{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);}
@@ -463,11 +463,11 @@ document.getElementById('connect-toggle').addEventListener('click',()=>{
 
 // ── PROJECT DATA ──
 const PROJ={
-  8:{title:'Patina',lbl:'Snap Spectacles · ACAD 207 · 2025',role:'AR Designer & Developer',img:null,
+  8:{title:'Patina',lbl:'Snap Spectacles · ACAD 207 · 2025',role:'AR Designer & Developer',img:'Snap-Spectacles-on-developer.webp',
     desc:'Patina is an AR social memory layer built for Snap Spectacles. Every space you inhabit leaves a trace. Using spatial anchors, users drop persistent 3D objects into physical locations — a glowing cloud or a bright form unique to them. Return to that space and those objects remain, growing richer with each visit.\n\nThe interaction is bodily. There are no menus — proximity is the input. Walk toward a zone and it reveals itself. Dwell for ten seconds and the owner\'s identity surfaces. Pinch to enter.',
     sections:[{head:'As AR Designer',items:['Designed the full UX session map covering 11 interaction steps from first impression to persistent session data.','Defined the spatial depth reference system: main UI panel at 110cm, instruction labels at 160cm, zone objects between 80–300cm.','Designed the identity system — cloud vs. bright object — as the expressive layer.','Designed the portal enter mechanic: pinch to split the object open as a key dramatic moment.']},{head:'As Lens Studio Developer',items:['Built the AR lens on Snap Spectacles using Lens Studio with GPS, accelerometer, proximity detection, and dwell timer inputs.','Implemented Supabase cloud layer for spatial anchor persistence and session timestamps.','Built proximity-based zone reveal with faint ambient audio increasing on approach.']}],
     tags:['AR Design','Lens Studio','Snap Spectacles','Spatial UX','Supabase','ACAD 207']},
-  2:{title:'USC IYA Spatial Research',lbl:'USC Honda Lab · Iovine & Young Academy · 2025–26',role:'XR Researcher',img:null,nda:true,
+  2:{title:'USC IYA Spatial Research',lbl:'USC Honda Lab · Iovine & Young Academy · 2025–26',role:'XR Researcher',img:'researchlab.webp',nda:true,
     desc:'Research at the USC Honda Lab in collaboration with the Jimmy Iovine and André Young Academy, focused on spatial computing interaction and novel input hardware.\n\nDetails are under NDA.',
     sections:[],
     tags:['XR Research','RealityKit','visionOS','Apple Vision Pro','Swift','Honda Lab']},
