@@ -1,486 +1,541 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lauren Thoman, Game Design and Coding Portfolio</title>
-  <meta name="description" content="Playable prototypes, technical projects, and interactive media by Lauren Thoman, USC game design and coding." />
-  <link rel="canonical" href="https://laurenthoman.dev/" />
-  <meta property="og:title" content="Lauren Thoman, Game Design and Coding Portfolio" />
-  <meta property="og:description" content="Playable prototypes, technical projects, and interactive media." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://laurenthoman.dev/" />
-  <meta property="og:image" content="https://laurenthoman.dev/og-image.jpg" />
-  <meta property="og:site_name" content="Lauren Thoman Portfolio" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="author" content="Lauren Thoman" />
-  <meta name="theme-color" content="#0ea5e9" />
-  <link rel="icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <style>
-    :root {
-      --bg: #0b1220;
-      --panel: #0f172a;
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --brand: #0ea5e9;
-      --accent: #22d3ee;
-      --orange: #f59e0b;
-      --card: #111827;
-      --stroke: rgba(148,163,184,0.18);
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(2,6,23,0.55);
-    }
-    * { box-sizing: border-box }
-    html, body { height: 100% }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--text);
-      background: radial-gradient(1200px 800px at 70% -10%, rgba(14,165,233,0.2), transparent 60%),
-                  radial-gradient(900px 600px at 0% 0%, rgba(34,211,238,0.12), transparent 60%),
-                  var(--bg);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    a { color: var(--accent); text-decoration: none }
-    a:hover { text-decoration: underline }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lauren Thoman</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FCF4E3;--pink:#F7CDD0;--teal:#5C9596;--mint:#C3D9D1;
+  --coral:#E8813A;--orange:#F0AD80;--brown:#2E1F14;
+  --br50:rgba(46,31,20,.50);--br15:rgba(46,31,20,.15);
+  --w1:#C8DFE0;--w2:#A8C8CC;--w3:#C8DFE0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--brown);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
 
-    .container { width: min(1100px, 92%); margin: 0 auto }
-    header {
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(10px);
-      background: rgba(11,18,32,0.8);
-      border-bottom: 1px solid var(--stroke);
-    }
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 0 }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: 0.3px }
-    .brand-badge {
-      width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%;
-      background: linear-gradient(135deg, var(--brand), var(--accent));
-      box-shadow: 0 6px 20px rgba(34,211,238,0.35), 0 0 0 2px rgba(245,158,11,0.3);
-      font-weight: 800; color: #051019;
-    }
-    .menu { display: flex; gap: 20px }
-    .menu a { color: var(--text); opacity: 0.9 }
+/* ── CURSOR ── */
+*{cursor:none !important;}
+.cur{position:fixed;width:18px;height:22px;background:var(--brown);clip-path:polygon(0 0,100% 38%,52% 52%,38% 100%);pointer-events:none;z-index:9999;top:0;left:0;opacity:.82;transition:opacity .15s,transform .15s;transform-origin:top left;}
+.cur.hover{opacity:.55;transform:scale(1.1);}
+.splash{position:fixed;border-radius:50%;border:1.5px solid var(--teal);pointer-events:none;z-index:9998;animation:splash .5s ease-out forwards;transform:translate(-50%,-50%);}
+@keyframes splash{0%{width:0;height:0;opacity:.6;}100%{width:44px;height:44px;opacity:0;}}
 
-    .skip { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden }
-    .skip:focus { left: 12px; top: 12px; width: auto; height: auto; padding: 8px 12px; background: #fff; color: #000; border-radius: 6px }
+/* ── INTRO (fixed overlay, always on top until dismissed) ── */
+#intro{
+  position:fixed;inset:0;z-index:1000;
+  background:var(--cream);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.ib{position:absolute;border-radius:50%;filter:blur(90px);animation:ibf 10s ease-in-out infinite alternate;}
+.ib1{width:500px;height:400px;background:var(--pink);opacity:.35;top:-12%;left:-8%;}
+.ib2{width:400px;height:400px;background:var(--mint);opacity:.28;bottom:-12%;right:-6%;animation-delay:-4s;}
+@keyframes ibf{0%{transform:translate(0,0);}100%{transform:translate(22px,-18px);}}
+.intro-wave{position:absolute;bottom:0;left:0;right:0;height:120px;overflow:hidden;opacity:.8;}
+.intro-wave svg{width:100%;height:100%;display:block;}
+.intro-kicker{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--br50);margin-bottom:18px;opacity:0;animation:up .6s ease .2s forwards;}
+.intro-name-wrap{opacity:0;animation:up .9s ease .5s forwards;text-align:center;}
+.intro-first{font-family:'Playfair Display',serif;font-size:clamp(72px,14vw,148px);font-weight:900;letter-spacing:-.03em;line-height:.88;color:#F0AD80;display:block;}
+.intro-last{font-family:'Playfair Display',serif;font-size:clamp(72px,14vw,148px);font-weight:900;letter-spacing:-.03em;line-height:.88;color:var(--teal);display:block;}
+.intro-descriptor{margin-top:22px;height:22px;overflow:hidden;opacity:0;animation:up .6s ease 1s forwards;}
+.desc-inner{display:flex;flex-direction:column;animation:descroll 9s ease-in-out infinite;}
+.desc-item{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--br50);height:22px;line-height:22px;text-align:center;}
+@keyframes descroll{0%,18%{transform:translateY(0);}25%,43%{transform:translateY(-22px);}50%,68%{transform:translateY(-44px);}75%,93%{transform:translateY(-66px);}100%{transform:translateY(0);}}
+.intro-btn{margin-top:52px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream);background:var(--teal);border:none;padding:14px 52px;border-radius:100px;opacity:0;animation:up .6s ease 1.5s forwards;position:relative;overflow:hidden;}
+.intro-btn::after{content:'';position:absolute;inset:0;background:var(--coral);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1);border-radius:100px;}
+.intro-btn span{position:relative;z-index:1;}
+.intro-btn:hover::after{transform:scaleX(1);}
+.intro-out{animation:wipe .75s cubic-bezier(.76,0,.24,1) forwards !important;}
+@keyframes wipe{0%{clip-path:inset(0 0 0% 0);}100%{clip-path:inset(0 0 100% 0);}}
+@keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
-    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; padding: 56px 0 36px }
-    .hero h1 { font-size: clamp(30px, 4vw, 44px); line-height: 1.12; margin: 0 0 12px }
-    .kicker { color: var(--orange); font-weight: 600; letter-spacing: 0.3px }
-    .lead { color: var(--muted); font-size: 1.05rem }
-    .actions { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap }
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 999px;
-      border: 1px solid var(--stroke); background: #0c1628; color: var(--text); text-decoration: none;
-      transition: transform .08s ease, background .2s ease, border-color .2s ease;
-    }
-    .btn:hover { transform: translateY(-1px); border-color: rgba(245,158,11,0.55) }
-    .btn.primary { background: linear-gradient(135deg, var(--brand), var(--orange)); color: #061017; font-weight: 700; border: none }
+/* ══════════════════════════════════════
+   THE PAGE — always exists below intro
+══════════════════════════════════════ */
 
-    .hero-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); border: 1px solid var(--stroke); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow) }
-    .statbar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px }
-    .stat { background: var(--card); border: 1px solid var(--stroke); border-radius: 12px; padding: 14px }
-    .stat strong { display: block; font-size: 1.2rem }
-    .stat span { color: var(--muted); font-size: 0.92rem }
+/* Hero */
+.hero{
+  min-height:100vh;
+  background:var(--cream);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:60px;
+}
+.hero-kicker{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--br50);margin-bottom:20px;}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(72px,14vw,148px);font-weight:900;letter-spacing:-.03em;line-height:.88;margin-bottom:16px;}
+.hn1{color:#F0AD80;display:block;}
+.hn2{color:var(--teal);display:block;}
+.hero-tag{font-family:'Playfair Display',serif;font-size:clamp(16px,2.5vw,32px);font-weight:400;font-style:italic;letter-spacing:-.02em;color:var(--br15);}
+.hero-descriptor{margin-top:14px;height:22px;overflow:hidden;}
+.hero-desc-inner{display:flex;flex-direction:column;animation:descroll 9s ease-in-out infinite;}
+.hero-desc-item{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--br50);height:22px;line-height:22px;text-align:center;}
 
-    section { padding: 36px 0 }
-    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 12px }
-    .section-head h2 { margin: 0; font-size: clamp(22px, 2.4vw, 28px) }
-    .section-head p { margin: 0; color: var(--muted) }
+/* ── ABOUT SECTION ── */
+.about-title-wrap{padding:0 60px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0;text-align:center;}
+.about-title{font-family:'Playfair Display',serif;font-size:clamp(44px,7.5vw,100px);font-weight:900;letter-spacing:-.04em;line-height:1;color:var(--brown);}
+.about-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 48px;max-height:0;overflow:hidden;transition:max-height .8s cubic-bezier(.16,1,.3,1),padding .8s cubic-bezier(.16,1,.3,1);}
+.about-grid.open{max-height:800px;padding:24px 48px 48px;}
+.about-block{background:var(--cream);border-radius:24px;padding:32px 24px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-height:420px;}
+.ab-dot{width:28px;height:28px;border-radius:50%;background:var(--teal);opacity:.5;margin-bottom:18px;flex-shrink:0;}
+.ab-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(46,31,20,.6);margin-bottom:10px;}
+.ab-title{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;font-weight:700;color:var(--brown);margin-bottom:12px;line-height:1.3;}
+.ab-body{font-size:12px;color:rgba(46,31,20,.6);line-height:1.75;}
+.ab-hi{color:var(--teal);font-weight:600;font-style:normal;}
 
-    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px }
-    .card { grid-column: span 4; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); border: 1px solid var(--stroke); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; min-height: 320px }
-    .thumb { position: relative; aspect-ratio: 16 / 9 }
-    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block }
-    .card-body { padding: 14px }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 8px }
-    .tag { font-size: 12px; color: var(--orange); background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.28); padding: 4px 8px; border-radius: 999px }
-    .card h3 { margin: 0 0 6px; font-size: 1.05rem }
-    .card p { margin: 0 0 10px; color: var(--muted) }
-    .card .links { margin-top: auto; display: flex; gap: 10px; padding: 0 14px 14px }
+.wsec{
+  position:relative;
+  padding:48px 0;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(60px);
+  transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  min-height:160px;
+}
+.wsec.in{opacity:1;transform:translateY(0);}
+.wsec-1{background:var(--w1);transition-delay:.0s;padding-bottom:0;}
+.wsec-2{background:var(--w2);transition-delay:.12s;padding-top:80px;}
+.wsec-3{background:var(--w3);transition-delay:.24s;padding-bottom:0;margin-bottom:60px;}
 
-    .about { display: grid; grid-template-columns: 1fr 1fr; gap: 20px }
-    .panel { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); border: 1px solid var(--stroke); border-radius: 14px; padding: 18px }
+.wsec-wave{position:absolute;top:-64px;left:0;right:0;height:68px;pointer-events:none;}
+.wsec-wave svg{width:100%;height:100%;display:block;}
 
-    footer { border-top: 1px solid var(--stroke); padding: 24px 0; color: var(--muted) }
+.wsec-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(44px,7.5vw,100px);
+  font-weight:900;letter-spacing:-.04em;
+  color:var(--brown);line-height:1;
+}
+/* ── WORK SECTION ── */
+.work-grid{width:100%;max-height:0;overflow:hidden;transition:max-height 1s cubic-bezier(.16,1,.3,1),padding .8s cubic-bezier(.16,1,.3,1);padding:0;}
+.work-grid.open{max-height:600px;padding:24px 0 48px;}
+.work-scroll{
+  display:flex;gap:16px;
+  overflow-x:auto;overflow-y:visible;
+  padding:0 48px 16px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.work-scroll::-webkit-scrollbar{display:none;}
+.pcard{
+  flex-shrink:0;
+  width:280px;
+  cursor:pointer;
+  background:var(--cream);
+  border-radius:16px;
+  overflow:hidden;
+  scroll-snap-align:start;
+  transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s;
+}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(46,31,20,.1);}
+.pcard-img{width:100%;aspect-ratio:4/3;position:relative;overflow:hidden;}
+.pcard-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s cubic-bezier(.16,1,.3,1);}
+.pcard:hover .pcard-bg{transform:scale(1.05);}
+.pcard-nda{position:absolute;top:10px;right:10px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;background:rgba(46,31,20,.55);color:rgba(252,244,227,.8);padding:3px 8px;border-radius:100px;}
+.pcard-info{padding:16px 18px 20px;}
+.pcard-meta{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(46,31,20,.55);margin-bottom:6px;}
+.pcard-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--brown);margin-bottom:3px;transition:color .2s;}
+.pcard:hover .pcard-title{color:var(--teal);}
+.pcard-role{font-size:11px;color:rgba(46,31,20,.5);}
 
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr }
-      .about { grid-template-columns: 1fr }
-      .card { grid-column: span 6 }
-    }
-    @media (max-width: 640px) {
-      .menu { display: none }
-      .card { grid-column: span 12 }
-      .statbar { grid-template-columns: 1fr 1fr }
-    }
+/* ── PROJECT OVERLAY ── */
+.po{position:fixed;inset:0;z-index:500;background:var(--cream);transform:translateX(100%);transition:transform .65s cubic-bezier(.16,1,.3,1);overflow-y:auto;overscroll-behavior:contain;}
+.po.open{transform:translateX(0);}
+.po-nav{position:sticky;top:0;z-index:10;padding:18px 60px;background:rgba(252,244,227,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(46,31,20,.1);display:flex;align-items:center;}
+.po-back{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;background:none;border:none;color:rgba(46,31,20,.5);display:flex;align-items:center;gap:6px;transition:color .2s;}
+.po-back:hover{color:var(--brown);}
+.po-cover{width:100%;aspect-ratio:16/9;background:rgba(46,31,20,.06);position:relative;overflow:hidden;}
+.po-cover-inner{position:absolute;inset:0;background:linear-gradient(145deg,#0A1428,#040810);}
+.po-cover-grad{position:absolute;inset:0;background:linear-gradient(to top,var(--cream) 0%,transparent 55%);z-index:1;}
+.po-meta{padding:0 60px;margin-top:-20px;position:relative;z-index:2;}
+.po-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(46,31,20,.45);margin-bottom:10px;}
+.po-title{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,72px);font-weight:900;letter-spacing:-.03em;line-height:.92;color:var(--brown);margin-bottom:10px;}
+.po-role{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);}
+.po-body{padding:40px 60px 100px;max-width:680px;font-size:15px;line-height:1.85;color:rgba(46,31,20,.65);}
+.po-body p{margin-bottom:16px;}
+.po-sh{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin:36px 0 10px;border-top:1px solid rgba(46,31,20,.1);padding-top:16px;font-weight:500;}
+.po-list{padding-left:18px;margin-bottom:16px;}
+.po-list li{margin-bottom:8px;line-height:1.7;}
+.po-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.po-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;background:rgba(46,31,20,.07);color:rgba(46,31,20,.6);}
+.po-nda-note{font-family:'DM Mono',monospace;font-size:11px;color:rgba(46,31,20,.45);padding:14px 18px;border:1px solid rgba(46,31,20,.12);border-radius:8px;display:inline-block;margin-top:8px;line-height:1.7;}
+.po-link{display:inline-flex;align-items:center;gap:6px;margin-top:20px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);background:var(--teal);padding:12px 22px;border-radius:100px;text-decoration:none;transition:background .2s;}
+.po-link:hover{background:#4a7f80;}
+.po-video-thumb{display:block;margin-top:28px;aspect-ratio:16/9;border-radius:8px;overflow:hidden;position:relative;text-decoration:none;}
+.po-video-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease;}
+.po-video-thumb:hover img{transform:scale(1.03);}
+.po-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);transition:background .2s;}
+.po-video-thumb:hover .po-play{background:rgba(0,0,0,.45);}
+.po-play svg{filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));}
+.con-wrap{display:grid;grid-template-columns:1fr 1fr;padding:0 60px;max-height:0;overflow:hidden;transition:max-height .8s cubic-bezier(.16,1,.3,1),padding .8s cubic-bezier(.16,1,.3,1);}
+.con-wrap.open{max-height:600px;padding:24px 60px 60px;}
+.con-l{padding-right:60px;border-right:1px solid rgba(46,31,20,.12);}
+.con-r{padding-left:60px;}
+.con-hed{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,52px);font-weight:900;letter-spacing:-.03em;line-height:1.05;color:var(--brown);margin-bottom:20px;}
+.con-hed em{font-style:italic;color:var(--teal);}
+.con-sub{font-size:14px;line-height:1.8;color:rgba(46,31,20,.6);margin-bottom:20px;max-width:400px;}
+.con-note{font-family:'DM Mono',monospace;font-size:10px;color:rgba(46,31,20,.4);border-top:1px solid rgba(46,31,20,.1);padding-top:14px;line-height:1.7;}
+.srow{display:flex;align-items:center;padding:18px 0;border-bottom:1px solid rgba(46,31,20,.1);text-decoration:none;transition:padding-left .2s;position:relative;overflow:hidden;}
+.srow::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--coral);transition:width .4s cubic-bezier(.16,1,.3,1);}
+.srow:hover::after{width:100%;}
+.srow:last-child{border-bottom:none;}
+.srow:hover{padding-left:8px;}
+.sn{width:32px;flex-shrink:0;color:rgba(46,31,20,.4);display:flex;align-items:center;}
+.sn svg{transition:color .2s;}
+.srow:hover .sn svg{color:var(--teal);}
+.si{flex:1;}
+.sname{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--brown);display:block;transition:color .2s;}
+.srow:hover .sname{color:var(--teal);}
+.sdesc{font-family:'DM Mono',monospace;font-size:10px;color:rgba(46,31,20,.4);margin-top:2px;}
+.sarr{font-size:14px;color:rgba(46,31,20,.3);transition:transform .2s,color .2s;}
+.srow:hover .sarr{color:var(--coral);transform:translate(3px,-3px);}
 
-    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 16px }
-    .btn.active { outline: 2px solid rgba(245,158,11,0.75) }
-    .btn { padding: 10px 14px; font-size: 0.95rem }
-    .actions { gap: 10px }
-    .btn.primary { font-weight: 600 }
-    .milestone { color: var(--muted); font-size: 0.92rem }
-    .footnote { color: var(--muted); font-size: 0.85rem }
-    .tag:hover { border-color: rgba(245,158,11,0.6); color: var(--orange) }
-    .thumb::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.18)); pointer-events: none }
-    .menu a:hover { color: var(--orange) }
-    .section-head h2::after { content: ""; display: block; width: 72px; height: 3px; background: linear-gradient(90deg, var(--orange), transparent); margin-top: 8px; border-radius: 999px }
-    .card:hover { border-color: rgba(245,158,11,0.55); box-shadow: 0 10px 30px rgba(245,158,11,0.08) }
-    .about .panel ul { margin: 0; padding-left: 18px }
-    .about .panel li { margin: 6px 0 }
-  </style>
+footer{padding:20px 60px;display:flex;justify-content:space-between;background:#F0AD80;}
+footer span{font-family:'DM Mono',monospace;font-size:10px;color:var(--brown);letter-spacing:.08em;opacity:.65;}
+@media(max-width:768px){
+  .hero,.wsec{padding-left:24px;padding-right:24px;}
+  footer{padding:14px 24px;flex-direction:column;gap:6px;text-align:center;}
+}
+</style>
 </head>
 <body>
-  <a class="skip" href="#projects">Skip to content</a>
-  <header>
-    <div class="container nav" aria-label="primary">
-      <div class="brand">
-        <div class="brand-badge" aria-hidden="true">LT</div>
-        <span>Lauren Thoman</span>
-      </div>
-      <nav class="menu">
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" class="btn" rel="noopener">Resume</a>
-      </nav>
+<div class="cur" id="cur"></div>
+
+<!-- ── INTRO overlay ── -->
+<div id="intro">
+  <div class="ib ib1"></div>
+  <div class="ib ib2"></div>
+  <div class="intro-wave">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C200,100 400,20 600,60 C800,100 1000,20 1200,60 C1320,80 1400,45 1440,60 L1440,120 L0,120 Z" fill="#C3D9D1" opacity=".35"/>
+      <path d="M0,80 C300,40 500,110 800,70 C1000,42 1200,90 1440,72 L1440,120 L0,120 Z" fill="#F7CDD0" opacity=".28"/>
+      <path d="M0,100 C360,60 720,120 1080,90 C1260,75 1380,100 1440,95 L1440,120 L0,120 Z" fill="#FCF4E3"/>
+    </svg>
+  </div>
+  <p class="intro-kicker">Creative Technologist · Experience Designer · SoCal</p>
+  <div class="intro-name-wrap">
+    <span class="intro-first">Lauren</span>
+    <span class="intro-last">Thoman</span>
+  </div>
+  <div class="intro-descriptor">
+    <div class="desc-inner">
+      <span class="desc-item">CS Engineering · Game Design · USC</span>
+      <span class="desc-item">Apple Vision Pro · visionOS · Swift</span>
+      <span class="desc-item">Snap Spectacles · AR Design</span>
+      <span class="desc-item">Human-Centered Experience</span>
+      <span class="desc-item">CS Engineering · Game Design · USC</span>
     </div>
-  </header>
+  </div>
+  <button class="intro-btn" id="ebtn"><span>Drop in ↓</span></button>
+</div>
 
-  <main class="container">
-    <section class="hero" id="home">
-      <div>
-        <div class="kicker">Game design and coding</div>
-        <h1>Game developer and designer, XR and interactive media</h1>
-        <p class="lead">USC Computer Science Games, focused on design, XR and spatial experiences, and interactive media; building playful prototypes in Unity and Unreal with an emphasis on feel, clarity, and iteration.</p>
-        <div class="actions">
-          <a class="btn primary" href="#projects">See projects</a>
-          <a class="btn" href="https://lauren-thoman.itch.io/" target="_blank" rel="noopener">itch profile</a>
-          <a class="btn" href="https://github.com/laurenthoman" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn" href="https://www.linkedin.com/in/laurenathoman" target="_blank" rel="noopener">LinkedIn</a>
-        </div>
-      </div>
-      <div class="hero-card">
-        <div class="thumb" aria-label="featured project image">
-          <img src="assets/hero-img.jpg" alt="Hero image representing XR and game design" />
-        </div>
-        <div class="statbar">
-          <div class="stat"><strong>4</strong><span>playable builds</span></div>
-          <div class="stat"><strong>7+</strong><span>years coding</span></div>
-          <div class="stat"><strong>2</strong><span>game engines</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="current">
-      <div class="section-head">
-        <h2>Currently building</h2>
-        <p>Active coursework, prototypes, experiences</p>
-      </div>
-      <div class="grid" id="current-grid" aria-live="polite"></div>
-    </section>
-
-    <section id="projects">
-      <div class="section-head">
-        <h2>Projects</h2>
-        <p>Playable builds, code, writeups</p>
-      </div>
-      <div class="filters" role="tablist" aria-label="Project filters">
-        <button class="btn active" data-filter="all" aria-selected="true">All</button>
-        <button class="btn" data-filter="games">Games</button>
-        <button class="btn" data-filter="xr">XR</button>
-        <button class="btn" data-filter="animation">Animation</button>
-        <button class="btn" data-filter="film">Film</button>
-        <button class="btn" data-filter="entrepreneurship">Entrepreneurship</button>
-        <button class="btn" data-filter="boardgame">Board games</button>
-      </div>
-      <div class="grid" id="project-grid" aria-live="polite"></div>
-    </section>
-
-    <section id="about" class="about">
-      <div class="panel">
-        <h2>About</h2>
-        <p>I am a USC Computer Science Games student, expected May 2027; I design and code in Unity and Unreal; I focus on gameplay programming, XR, UI and UX. Past work includes Unity games and prototypes, board games, 3D animation, a short film, and entrepreneurship projects; I completed a summer game design internship with IndieCade where I built Unity systems and delivered a playable build on schedule.</p>
-        <ul>
-          <li>Engines: Unity, Unreal Engine, UEFN</li>
-          <li>Languages: C#, C++, Python, JavaScript, HTML</li>
-          <li>Tools: Xcode, Git, GitHub</li>
-          <li>Creative: Maya, Blender, Figma, Photoshop, Affinity Designer, Affinity Photo, Procreate, Canva, Inkscape, Onshape</li>
-          <li>Focus: XR, spatial design, gameplay programming, prototyping</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <h3>Currently exploring</h3>
-        <ul>
-          <li><strong>ACAD 207, Snap Spectacles prototyping:</strong> Collaborating with Snap, designing and prototyping wearable AR experiences in Lens Studio across the semester.</li>
-          <li><strong>CTAN 462, Visual Effects Creation:</strong> Building original VFX shots and learning workflow across Photoshop, Maya, and Nuke.</li>
-        </ul>
-        <h3 style="margin-top:12px">Recognition</h3>
-        <p>Indie jam showcases, campus demo days, community features.</p>
-      </div>
-    </section>
-
-    <section id="resume">
-      <div class="section-head">
-        <h2>Resume</h2>
-        <p>Download or view in browser</p>
-      </div>
-      <div class="panel">
-        <a class="btn" href="assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" target="_blank" rel="noopener">Download resume PDF</a>
-        <object data="assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" type="application/pdf" width="100%" height="480">
-          <p>Your browser can display the PDF; you can also <a href="assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" target="_blank" rel="noopener">open it here</a></p>
-        </object>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="section-head">
-        <h2>Contact</h2>
-        <p>Reach out for internships, collaborations, playtests</p>
-      </div>
-      <div class="panel">
-        <p>Email: <a href="mailto:laurenathoman@gmail.com">laurenathoman@gmail.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/laurenathoman" target="_blank" rel="noopener">linkedin.com/in/laurenathoman</a></p>
-        <p>itch: <a href="https://lauren-thoman.itch.io/" target="_blank" rel="noopener">lauren thoman itch page</a></p>
-        <p>GitHub: <a href="https://github.com/laurenthoman" target="_blank" rel="noopener">github.com/laurenthoman</a></p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>© <span id="year"></span> Lauren Thoman. All rights reserved.</p>
-      <p class="footnote">Designed and coded by Lauren Thoman, with the help of AI.</p>
+<!-- ── THE PAGE ── -->
+<section class="hero" id="hero">
+  <p class="hero-kicker">Creative Technologist · Experience Designer · SoCal</p>
+  <div class="hero-name">
+    <span class="hn1">Lauren</span>
+    <span class="hn2">Thoman</span>
+  </div>
+  <div class="hero-descriptor">
+    <div class="hero-desc-inner">
+      <span class="hero-desc-item">CS Engineering · Game Design · USC</span>
+      <span class="hero-desc-item">Apple Vision Pro · visionOS · Swift</span>
+      <span class="hero-desc-item">Snap Spectacles · AR Design</span>
+      <span class="hero-desc-item">Human-Centered Experience</span>
+      <span class="hero-desc-item">CS Engineering · Game Design · USC</span>
     </div>
-  </footer>
+  </div>
+  <p class="hero-tag">building spatial experiences.</p>
+</section>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+<section class="wsec wsec-1" id="about">
+  <div class="wsec-wave">
+    <svg viewBox="0 0 1440 68" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,34 C240,68 480,0 720,34 C960,68 1200,0 1440,34 L1440,68 L0,68 Z" fill="var(--cream)"/>
+    </svg>
+  </div>
 
-    window.PLACEHOLDER = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="%230b1220"/><stop offset="1" stop-color="%2310213a"/></linearGradient></defs><rect fill="url(%23g)" width="1600" height="900"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%2394a3b8" font-family="Inter,Arial,sans-serif" font-size="32">Cover image</text></svg>';
+  <!-- About title — click to open -->
+  <div class="about-title-wrap" id="about-toggle">
+    <h2 class="about-title">About</h2>
+  </div>
 
-    const LINKEDIN_PROJECTS = 'https://www.linkedin.com/in/laurenathoman/details/projects/';
+  <!-- Four blocks -->
+  <div class="about-grid" id="about-grid">
+    <div class="about-block">
+      <div class="ab-dot"></div>
+      <p class="ab-label">The work</p>
+      <p class="ab-title"><span class="ab-hi">Spatial experiences.</span> Built in code.</p>
+      <p class="ab-body">I design and engineer for <span class="ab-hi">visionOS</span>, <span class="ab-hi">Snap Spectacles</span>, <span class="ab-hi">Unity</span>, and <span class="ab-hi">Unreal</span>. My foundation is in code — <span class="ab-hi">C#, C++, Python, Swift, JavaScript</span>. What makes it distinct is a background in <span class="ab-hi">Maya and visual effects</span>: texture, light, and interaction are never afterthoughts.</p>
+    </div>
+    <div class="about-block">
+      <div class="ab-dot" style="background:var(--pink);"></div>
+      <p class="ab-label">How I work</p>
+      <p class="ab-title">Engineer who designs. Designer who builds.</p>
+      <p class="ab-body">My major is <span class="ab-hi">Computer Science (Games)</span> at <span class="ab-hi">USC Viterbi</span>. I write the code for the experiences I design — from spatial UI prototypes to shipped builds. My coursework spans <span class="ab-hi">USC's School of Cinematic Arts</span> and the <span class="ab-hi">Jimmy Iovine and André Young Academy</span>. That training came to life at <span class="ab-hi">IndieCade</span>, where I was lead designer, programmer, and artist on a 12+ person team.</p>
+    </div>
+    <div class="about-block">
+      <div class="ab-dot" style="background:#F0AD80;"></div>
+      <p class="ab-label">Flow</p>
+      <p class="ab-title">The frequency of things</p>
+      <p class="ab-body"><span class="ab-hi">Flow</span> is what happens when the craft takes over — and I find it in a lot of places. Music, DJing, the pool, a 3D scene that finally clicks. <span class="ab-hi">Spatial experiences</span> are the hardest design challenge because they involve more senses than any screen ever will. When I put my grandparents in Bora Bora with a headset, or my mom pulled off an Apple immersive because the fear felt too real — those moments are the entire point.</p>
+    </div>
+    <div class="about-block">
+      <div class="ab-dot" style="background:rgba(46,31,20,.15);"></div>
+      <p class="ab-label">Beyond the build</p>
+      <p class="ab-title">Community, travel, the spaces between</p>
+      <p class="ab-body">I'm <span class="ab-hi">Programming Chair</span> at <span class="ab-hi">Art.Ificial</span> — USC's first student org at the intersection of AI, entertainment, and creative technology. I travel constantly, make personal art to learn tools and express what code can't. I serve as <span class="ab-hi">VP of USC Women's Club Water Polo</span> and run the team's social media.</p>
+    </div>
+  </div>
+</section>
 
-    const projects = [
-      {
-        title: 'Snap Spectacles, ACAD 207',
-        blurb: 'Iovine and Young Academy course with Professor Carsten Becker, collaborating with Snap to prototype wearable experiences and apps for Snap Spectacles in Lens Studio.',
-        milestone: 'Concept pitches, interaction tests, iterative Lens Studio prototypes, weekly playtests.',
-        cover: 'assets/snap-spectacles-cover.jpg',
-        tags: ['Lens Studio', 'AR', 'Wearables'],
-        categories: ['current','xr'],
-        status: 'current',
-        play: LINKEDIN_PROJECTS,
-        code: ''
-      },
-      {
-        title: 'Visual Effects Shots, CTAN 462',
-        blurb: 'School of Cinematic Arts VFX course with Professor Eric Hanson, creating original shots while learning a modern visual effects workflow.',
-        milestone: 'Compositing exercises, matchmove and tracking, green screen work, first original VFX shots.',
-        cover: 'assets/vfx-shot-cover.jpg',
-        tags: ['Nuke', 'Maya', 'Photoshop'],
-        categories: ['current','film'],
-        status: 'current',
-        play: LINKEDIN_PROJECTS,
-        code: ''
-      },
+<section class="wsec wsec-2" id="work">
+  <div class="wsec-wave">
+    <svg viewBox="0 0 1440 68" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,34 C240,0 480,68 720,34 C960,0 1200,68 1440,34 L1440,68 L0,68 Z" fill="var(--w1)"/>
+    </svg>
+  </div>
+  <div class="about-title-wrap" id="work-toggle">
+    <h2 class="wsec-title">Work</h2>
+  </div>  <div class="work-grid" id="work-grid">
+    <div class="work-scroll">
+      <div class="pcard" data-id="0">
+        <div class="pcard-img"><div class="pcard-bg" style="background-image:url('https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/neuragaze-cover.jpg');background-size:cover;background-position:center;"></div></div>
+        <div class="pcard-info"><p class="pcard-meta">Apple Vision Pro · IDSN 538 · 2025</p><h3 class="pcard-title">NeuraGaze</h3><p class="pcard-role">Spatial UX — Pitched to Apple</p></div>
+      </div>
+      <div class="pcard" data-id="1">
+        <div class="pcard-img"><div class="pcard-bg" style="background-image:url('https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/fish_finder.png');background-size:cover;background-position:center;"></div></div>
+        <div class="pcard-info"><p class="pcard-meta">Snap Spectacles · ACAD 207 · 2025</p><h3 class="pcard-title">Fish Finder</h3><p class="pcard-role">AR Design & Development</p></div>
+      </div>
+      <div class="pcard" data-id="8">
+        <div class="pcard-img"><div class="pcard-bg" style="background-image:url('https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/Snap-Spectacles-on-developer.webp');background-size:cover;background-position:center;"></div></div>
+        <div class="pcard-info"><p class="pcard-meta">AR · Snap Spectacles · 2025</p><h3 class="pcard-title">Patina</h3><p class="pcard-role">AR Social Memory Layer</p></div>
+      </div>
+      <div class="pcard" data-id="2">
+        <div class="pcard-img"><div class="pcard-bg" style="background-image:url('https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/researchlab.webp');background-size:cover;background-position:center;"></div><span class="pcard-nda">NDA</span></div>
+        <div class="pcard-info"><p class="pcard-meta">Apple Vision Pro · Honda Lab · 2025–26</p><h3 class="pcard-title">USC IYA Spatial Research</h3><p class="pcard-role">XR Researcher</p></div>
+      </div>
+      <div class="pcard" data-id="9">
+        <div class="pcard-img"><div class="pcard-bg" style="background-image:url('https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/xikaku.webp');background-size:cover;background-position:center;"></div></div>
+        <div class="pcard-info"><p class="pcard-meta">Xikaku Inc. · Marina Del Rey · 2026</p><h3 class="pcard-title">Xikaku — XR Internship</h3><p class="pcard-role">XR Development Intern</p></div>
+      </div>
+      <div class="pcard" data-id="6">
+        <div class="pcard-img"><div class="pcard-bg" style="background-image:url('https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/costal_keepers.png');background-size:cover;background-position:center;"></div></div>
+        <div class="pcard-info"><p class="pcard-meta">IndieCade Climate Jam · Unity · Shipped</p><h3 class="pcard-title">Coastal Keepers</h3><p class="pcard-role">Lead Designer · Programmer · Artist</p></div>
+      </div>
+      <div class="pcard" data-id="4">
+        <div class="pcard-img"><div class="pcard-bg" style="background-image:url('https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/reflections-cover.jpg');background-size:cover;background-position:center;"></div></div>
+        <div class="pcard-info"><p class="pcard-meta">Unity · CTIN 489 · USC SCA</p><h3 class="pcard-title">Reflections</h3><p class="pcard-role">Game Designer & Developer</p></div>
+      </div>
+      <div class="pcard" data-id="3">
+        <div class="pcard-img"><div class="pcard-bg" style="background-image:url('https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/vfx-shot-cover.jpg');background-size:cover;background-position:center;"></div></div>
+        <div class="pcard-info"><p class="pcard-meta">Nuke · Maya · CTAN 462 · In Progress</p><h3 class="pcard-title">Steampunk UFO Scene</h3><p class="pcard-role">VFX Artist</p></div>
+      </div>
+      <div class="pcard" data-id="5">
+        <div class="pcard-img"><div class="pcard-bg" style="background-image:url('https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/animation-3d.jpg');background-size:cover;background-position:center;"></div></div>
+        <div class="pcard-info"><p class="pcard-meta">Maya · CTAN 452 · USC</p><h3 class="pcard-title">Chef Scene</h3><p class="pcard-role">3D Artist & Animator</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      {
-        title: 'Reflections',
-        blurb: 'Final project for Intermediate Game Design and Production, built with a partner across the semester in Unity, focused on clean feel, readable signals, and rapid iteration.',
-        milestone: 'Title screen, movement polish, first pass art, menu UI, narrative beats.',
-        cover: 'assets/reflections-cover.jpg',
-        tags: ['Unity', 'C#', 'Design'],
-        categories: ['games'],
-        status: 'past',
-        play: 'https://lauren-thoman.itch.io/reflections',
-        code: ''
-      },
-      {
-        title: 'NeuraGaze, Apple Vision Pro App Prototype',
-        blurb: 'VisionOS prototype exploring gaze based interaction and spatial UI, designed and pitched as a team concept with iterative testing and presentation deliverables.',
-        milestone: 'Interaction flow, prototype screens, core mechanics, presentation deck.',
-        cover: 'assets/neuragaze-cover.jpg',
-        tags: ['VisionOS', 'XR', 'Prototype'],
-        categories: ['xr'],
-        status: 'past',
-        play: LINKEDIN_PROJECTS,
-        code: ''
-      },
+<section class="wsec wsec-3" id="connect">
+  <div class="wsec-wave">
+    <svg viewBox="0 0 1440 68" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,34 C240,68 480,0 720,34 C960,68 1200,0 1440,34 L1440,68 L0,68 Z" fill="var(--w2)"/>
+    </svg>
+  </div>
 
-      {
-        title: 'Interactive Comedy Sound Board',
-        blurb: 'Playful Unity prototype that turns button presses into tiny performances with juicy feedback.',
-        cover: 'assets/comedy-soundboard.jpg',
-        tags: ['Unity', 'Prototype'],
-        categories: ['games'],
-        status: 'past',
-        play: 'https://lauren-thoman.itch.io/interactive-comedy-sound-board',
-        code: ''
-      },
-      {
-        title: 'Pillow Fight V 1.0, CTIN 489',
-        blurb: 'Whimsical driving prototype, crash into obstacles for playful and chaotic feedback, designed for quick iteration in class.',
-        cover: 'assets/pillow-fight.jpg',
-        tags: ['Unity', 'Prototype'],
-        categories: ['games'],
-        status: 'past',
-        play: 'https://lauren-thoman.itch.io/pillow-fight-prototype',
-        code: ''
-      },
-      {
-        title: 'Coastal Keepers, Climate Jam',
-        blurb: 'Team project for IndieCade Climate Jam, tower defense with community resilience theme, shipped Windows build.',
-        cover: 'assets/ck-cover.jpg',
-        tags: ['Unity', 'Windows', 'Jam'],
-        categories: ['games'],
-        status: 'past',
-        play: 'https://cmoll24.itch.io/coastal-keepers',
-        code: ''
-      },
-      {
-        title: '3D Animation project',
-        blurb: 'Modeled, textured, rigged, animated in Maya, rendered a character scene.',
-        cover: 'assets/animation-3d.jpg',
-        tags: ['Maya', 'Animation'],
-        categories: ['animation'],
-        status: 'past',
-        play: 'https://www.youtube.com/watch?v=zI36qLSJfmU',
-        code: ''
-      },
-      {
-        title: 'XR technology concept',
-        blurb: 'Interaction concepts and storyboards, Figma community file linked.',
-        cover: 'assets/xr-concept.jpg',
-        tags: ['XR', 'Design'],
-        categories: ['xr'],
-        status: 'past',
-        play: 'https://www.figma.com/community/file/1545516247774060030',
-        code: ''
-      },
-      {
-        title: 'The World Off the Screen',
-        blurb: 'Short film to bring awareness to teen mental health and social media, focus on narrative pacing and music choices.',
-        cover: 'assets/short-film.jpg',
-        tags: ['Film', 'Editing'],
-        categories: ['film'],
-        status: 'past',
-        play: 'https://www.youtube.com/watch?v=GYUyDXAw8JQ',
-        code: ''
-      },
-      {
-        title: 'Entrepreneurship & Product Design',
-        blurb: 'Concept to listing, design and launch of small products and visuals.',
-        cover: 'assets/entrepreneurship.jpg',
-        tags: ['Design', 'Product'],
-        categories: ['entrepreneurship'],
-        status: 'past',
-        play: LINKEDIN_PROJECTS,
-        code: ''
-      },
-      {
-        title: 'Order Up, CTIN 488',
-        blurb: 'Board game, team of five, selected as a top three project by faculty, tabletop iteration and balance.',
-        cover: 'assets/order-up.jpg',
-        tags: ['Board game', 'Design'],
-        categories: ['boardgame'],
-        status: 'past',
-        play: LINKEDIN_PROJECTS,
-        code: ''
-      },
-      {
-        title: 'NOT ME!, CTIN 488',
-        blurb: 'Murder mystery party game where players point fingers at each other, tabletop social deduction; main designer, led physical assets and graphic design.',
-        cover: 'assets/not-me.jpg',
-        tags: ['Board game', 'Party', 'Design', 'Graphic'],
-        categories: ['boardgame'],
-        status: 'past',
-        play: LINKEDIN_PROJECTS,
-        code: ''
-      }
-    ];
+  <div class="about-title-wrap" id="connect-toggle">
+    <h2 class="about-title">Connect</h2>
+  </div>
 
-    const currentGrid = document.getElementById('current-grid');
-    const projectGrid = document.getElementById('project-grid');
+  <div class="con-wrap" id="connect-grid">
+    <div class="con-l">
+      <h2 class="con-hed">Want to build<br>something <em>together?</em></h2>
+      <p class="con-sub">Open to internships, collaborations, and creative projects — especially where engineering, design, storytelling, and emerging technology share the same space.</p>
+      <p class="con-note">Currently: XR Development Intern at Xikaku · Marina Del Rey · Spring 2026<br>B.S. CS (Games) · USC Viterbi Engineering · May 2027</p>
+    </div>
+    <div class="con-r">
+      <a href="https://linkedin.com/in/laurenathoman" class="srow" target="_blank">
+        <span class="sn"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
+        <div class="si"><span class="sname">LinkedIn</span><p class="sdesc">Best way to reach me</p></div>
+        <span class="sarr">↗</span>
+      </a>
+      <a href="https://github.com/laurenthoman" class="srow" target="_blank">
+        <span class="sn"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span>
+        <div class="si"><span class="sname">GitHub</span><p class="sdesc">Code and open builds</p></div>
+        <span class="sarr">↗</span>
+      </a>
+      <a href="https://lauren-thoman.itch.io" class="srow" target="_blank">
+        <span class="sn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="2" y="8" width="20" height="12" rx="3"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/><line x1="9" y1="14" x2="9" y2="14"/><line x1="7" y1="14" x2="11" y2="14"/><line x1="9" y1="12" x2="9" y2="16"/><circle cx="15" cy="13" r="1" fill="currentColor"/><circle cx="17" cy="15" r="1" fill="currentColor"/></svg></span>
+        <div class="si"><span class="sname">itch.io</span><p class="sdesc">Playable projects</p></div>
+        <span class="sarr">↗</span>
+      </a>
+      <a href="https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/RESUME%20-%20LAUREN%20THOMAN%20(2).pdf" class="srow" target="_blank">
+        <span class="sn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>
+        <div class="si"><span class="sname">Resume PDF</span><p class="sdesc">Download or view</p></div>
+        <span class="sarr">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
 
-    function renderCards(container, items) {
-      container.innerHTML = '';
-      items.forEach(p => {
-        const card = document.createElement('article');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="thumb">
-            <img
-              src="${p.cover || window.PLACEHOLDER}"
-              alt="${p.title} cover"
-              loading="lazy"
-              onerror="this.onerror=null; this.src=window.PLACEHOLDER;"
-            >
-          </div>
-          <div class="card-body">
-            <h3>${p.title}</h3>
-            <div class="tags">${(p.tags || []).map(t => `<span class='tag'>${t}</span>`).join('')}</div>
-            <p>${p.blurb}</p>
-            ${p.milestone ? `<p class="milestone"><strong>Milestone:</strong> ${p.milestone}</p>` : ''}
-          </div>
-          <div class="links">
-            ${p.play ? `<a class="btn" href="${p.play}" target="_blank" rel="noopener">View</a>` : ''}
-            ${p.code ? `<a class="btn" href="${p.code}" target="_blank" rel="noopener">Code</a>` : ''}
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
+<footer>
+  <span>Lauren Thoman · laurenthoman.dev · © 2026</span>
+  <span>Palm Springs · San Diego · Los Angeles</span>
+</footer>
 
-    function renderCurrent() {
-      const items = projects.filter(p => p.status === 'current');
-      renderCards(currentGrid, items);
-    }
+<div id="po" class="po">
+  <div class="po-nav">
+    <button class="po-back" id="po-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to work
+    </button>
+  </div>
+  <div class="po-cover"><div id="po-cover-inner" class="po-cover-inner"></div><div class="po-cover-grad"></div></div>
+  <div class="po-meta">
+    <p class="po-lbl" id="po-lbl"></p>
+    <h1 class="po-title" id="po-title"></h1>
+    <p class="po-role" id="po-role"></p>
+  </div>
+  <div class="po-body" id="po-body"></div>
+</div>
 
-    function renderProjects(filter = 'all') {
-      let items = projects.filter(p => p.status !== 'current');
-      if (filter !== 'all') {
-        items = items.filter(p => p.categories && p.categories.includes(filter));
-      }
-      renderCards(projectGrid, items);
-    }
+<script>
+const BASE='https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/';
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+document.addEventListener('mouseleave',()=>cur.style.opacity='0');
+document.addEventListener('mouseenter',()=>cur.style.opacity='.82');
+document.addEventListener('click',e=>{
+  const s=document.createElement('div');s.className='splash';
+  s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';
+  document.body.appendChild(s);setTimeout(()=>s.remove(),520);
+});
+document.querySelectorAll('button,a,.pcard,.about-block,.about-title-wrap').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('hover'));
+});
 
-    document.querySelectorAll('.filters [data-filter]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filters .btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const f = btn.getAttribute('data-filter');
-        renderProjects(f);
-      });
+document.getElementById('ebtn').addEventListener('click',()=>{
+  document.getElementById('intro').classList.add('intro-out');
+  setTimeout(()=>{
+    document.getElementById('intro').style.display='none';
+    const about=document.getElementById('about');
+    window.scrollTo({top:about.getBoundingClientRect().top+window.scrollY-40,behavior:'smooth'});
+    document.querySelectorAll('.wsec').forEach((el,i)=>{
+      setTimeout(()=>el.classList.add('in'),i*140);
     });
+  },800);
+});
 
-    renderCurrent();
-    renderProjects('all');
-  </script>
+function scrollToCenter(el){
+  setTimeout(()=>{
+    const rect=el.getBoundingClientRect();
+    const scrollTop=window.scrollY+rect.top-(window.innerHeight/2)+(rect.height/2);
+    window.scrollTo({top:scrollTop,behavior:'smooth'});
+  },50);
+}
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Lauren Thoman",
-    "url": "https://laurenthoman.dev/",
-    "sameAs": [
-      "https://www.linkedin.com/in/laurenathoman",
-      "https://lauren-thoman.itch.io",
-      "https://github.com/laurenthoman"
-    ],
-    "email": "mailto:laurenathoman@gmail.com",
-    "jobTitle": "Game Developer",
-    "alumniOf": {
-      "@type": "CollegeOrUniversity",
-      "name": "University of Southern California"
-    }
+document.getElementById('about-toggle').addEventListener('click',()=>{
+  const grid=document.getElementById('about-grid');
+  grid.classList.toggle('open');
+  scrollToCenter(document.getElementById('about'));
+});
+document.getElementById('work-toggle').addEventListener('click',()=>{
+  const grid=document.getElementById('work-grid');
+  grid.classList.toggle('open');
+  scrollToCenter(document.getElementById('work'));
+});
+document.getElementById('connect-toggle').addEventListener('click',()=>{
+  const grid=document.getElementById('connect-grid');
+  grid.classList.toggle('open');
+  scrollToCenter(document.getElementById('connect'));
+});
+
+// ── PROJECT DATA ──
+const PROJ={
+  8:{title:'Patina',lbl:'Snap Spectacles · ACAD 207 · 2025',role:'AR Designer & Developer',img:null,
+    desc:'Patina is an AR social memory layer built for Snap Spectacles. Every space you inhabit leaves a trace. Using spatial anchors, users drop persistent 3D objects into physical locations — a glowing cloud or a bright form unique to them. Return to that space and those objects remain, growing richer with each visit.\n\nThe interaction is bodily. There are no menus — proximity is the input. Walk toward a zone and it reveals itself. Dwell for ten seconds and the owner\'s identity surfaces. Pinch to enter.',
+    sections:[{head:'As AR Designer',items:['Designed the full UX session map covering 11 interaction steps from first impression to persistent session data.','Defined the spatial depth reference system: main UI panel at 110cm, instruction labels at 160cm, zone objects between 80–300cm.','Designed the identity system — cloud vs. bright object — as the expressive layer.','Designed the portal enter mechanic: pinch to split the object open as a key dramatic moment.']},{head:'As Lens Studio Developer',items:['Built the AR lens on Snap Spectacles using Lens Studio with GPS, accelerometer, proximity detection, and dwell timer inputs.','Implemented Supabase cloud layer for spatial anchor persistence and session timestamps.','Built proximity-based zone reveal with faint ambient audio increasing on approach.']}],
+    tags:['AR Design','Lens Studio','Snap Spectacles','Spatial UX','Supabase','ACAD 207']},
+  2:{title:'USC IYA Spatial Research',lbl:'USC Honda Lab · Iovine & Young Academy · 2025–26',role:'XR Researcher',img:null,nda:true,
+    desc:'Research at the USC Honda Lab in collaboration with the Jimmy Iovine and André Young Academy, focused on spatial computing interaction and novel input hardware.\n\nDetails are under NDA.',
+    sections:[],
+    tags:['XR Research','RealityKit','visionOS','Apple Vision Pro','Swift','Honda Lab']},
+  9:{title:'Xikaku — XR Development Internship',lbl:'Xikaku Inc. · Marina Del Rey · Spring & Summer 2026',role:'XR Development Intern',img:'xikaku.webp',
+    desc:'On-site XR development internship at Xikaku Inc. in Marina Del Rey. Starting Spring 2026. More to come.',
+    sections:[],tags:['XR Development','On-site','Marina Del Rey','2026']},
+  3:{title:'Steampunk UFO Scene',lbl:'Nuke · Maya · CTAN 462 · In Progress',role:'VFX Artist',img:'vfx-shot-cover.jpg',
+    desc:'A cinematic VFX sequence blending steampunk aesthetics, pirate-inspired imagery, and sci-fi UFO elements. Brass-and-copper mechanical textures, weathered nautical details, otherworldly flying saucer forms. Focus on lighting, compositing, and effects simulation.',
+    sections:[{head:'As VFX Artist',items:['Built UFO geometry and environment elements in Maya with steampunk-inspired surface detail.','Set up multi-pass rendering pipeline: diffuse, specular, shadow, and ambient occlusion passes.','Composited and graded in Nuke, integrating 3D renders with practical-inspired lighting and atmospheric effects.']}],
+    tags:['VFX','Nuke','Maya','Compositing','3D','CTAN 462']},
+  0:{title:'NeuraGaze',lbl:'Apple Vision Pro · IDSN 538 · 2025',role:'Spatial UX Designer',img:'neuragaze-cover.jpg',
+    desc:'NeuraGaze is a spatial UX app designed for neurodivergent learners on Apple Vision Pro — gaze-based interaction, real-time visual simplification, dynamic background blurring, spatial breathing anchors, time awareness features, and post-task session summaries. Prototyped in Unity and Xcode for visionOS.\n\nPitched to Matt Stern from Apple\'s Vision Products Group on demo day.',
+    sections:[{head:'As Spatial UX Designer',items:['Designed a gaze-first interaction model: dwell thresholds, progressive reveal states, and foveal attention zones.','Built an accessibility design system — visual simplification modes, calming interventions, spatial breathing anchors.','Prototyped in Unity and Xcode for visionOS; pitched directly to Apple\'s Vision Products Group.','Developed the full demo and design rationale for a live pitch to Apple on demo day.']}],
+    tags:['Spatial UX','Apple Vision Pro','visionOS','Accessibility','IDSN 538'],
+    video:'btYDO56YIxE'},
+  1:{title:'Fish Finder',lbl:'Snap Spectacles · ACAD 207 · 2025',role:'AR Designer & Developer',img:'fish_finder.png',link:{url:'https://www.snapchat.com/lens/ee0cd55b16824864aed1796c3d94b24f?sender_web_id=c133f43a-79ea-4e2e-a0b4-e0c88f5e8a5f&device_type=desktop&is_copy_url=true',label:'Try the Lens on Snapchat'},
+    desc:'An interactive AR aquarium built for Snap Spectacles in direct collaboration with the Snap Spectacles team. Users place fish anywhere in their space, pinch to interact, and explore inspection panels with species details, maps, and fully rotatable 3D models. Dynamic fish animation states and an ambient bubble system.',
+    sections:[{head:'As AR Designer',items:['Designed the full UX flow map for the aquarium experience — 9 interaction states from placement through inspection.','Created the fish inspection panel UI: species name, habitat info, maps, and rotatable 3D model.','Designed ambient visual language: water-like distortion, particle effects, depth cues.']},{head:'As Lens Studio Developer',items:['Built the full Lens for Snap Spectacles — world-tracked fish placement, pinch interaction, proximity triggers.','Implemented panel open/close system and 3D model rotation input.','Integrated dynamic animation state system for idle, approach, and interaction behaviors.']}],
+    tags:['AR Design','Lens Studio','Snap Spectacles','Proximity Interaction','ACAD 207'],
+    video:'nZX2HCbABWc'},
+  4:{title:'Reflections',lbl:'Unity · CTIN 489 · USC SCA · 2024',role:'Game Designer & Developer',img:'reflections-cover.jpg',
+    desc:'A narrative-driven platformer built with a partner for CTIN 489 at USC\'s School of Cinematic Arts. The core mechanic — window washing — gradually reveals a character\'s hidden emotional arc: someone who overworks and never asks for help. Every reveal was designed to carry emotion.',
+    sections:[{head:'As Game Designer & Developer',items:['Designed the window-washing mechanic as an emotional reveal system — cleaning reveals story fragments.','Focused on what each moment should feel like: movement polish, clean feel, readable player signals.','Built gameplay systems in Unity C# including player controller, trigger zones, and narrative state management.','Rapid iteration through playtesting within the CTIN 489 cohort.']}],
+    tags:['Game Design','Unity','C#','Narrative Design','CTIN 489','USC SCA'],video:'DgNhdIrS03I'},
+  5:{title:'Chef Scene',lbl:'Maya · CTAN 452 · USC · 2024',role:'3D Artist & Animator',img:'animation-3d.jpg',
+    desc:'A full 10–15 second animated short through the complete pipeline — pre-production, modeling, rigging, animation, lighting, and rendering with Arnold. Stylized low-poly character in a kitchen environment. Hard-surface character built from basic geometric forms with a forward kinematics rig.\n\nRecovered from mid-semester file corruption.',
+    sections:[{head:'As 3D Artist & Animator',items:['Modeled a stylized low-poly chef character and kitchen environment from scratch.','Built a forward kinematics rig with full joint hierarchy and skinning.','Textured all assets using UV mapping and hand-painted maps.','Set up three-point lighting and rendered the final sequence using Arnold.','Recovered the project after mid-semester file corruption and completed on deadline.']}],
+    tags:['3D Animation','Maya','Rigging','Texturing','Arnold','CTAN 452'],video:'zI36qLSJfmU'},
+  6:{title:'Coastal Keepers',lbl:'IndieCade Climate Jam · Unity · Shipped · 2025',role:'Game Designer · Programmer · Artist',img:'costal_keepers.png',
+    desc:'Built during IndieCade\'s 7-week competitive internship program for the Climate Jam, themed "Natural & unNatural Disasters." I was the only person on a 12+ person international team holding three roles simultaneously — lead designer, programmer, and artist. Shipped a playable Windows build on schedule.',
+    sections:[{head:'As Lead Designer',items:['Designed the core game loop around ocean conservation and climate disaster themes.','Defined win/loss conditions and progression structure under jam time constraints.','Coordinated design decisions across disciplines throughout production.']},{head:'As Programmer',items:['Built gameplay systems in Unity C#: player movement, resource collection, objective tracking.','Implemented game state management, scene transitions, and save logic.']},{head:'As Artist',items:['Created 2D visual assets: environment tiles, character sprites, and UI elements.','Maintained visual consistency across all assets under jam timelines.']}],
+    tags:['Game Design','Unity','C#','2D Art','IndieCade','Climate Jam','Shipped','Windows']}
+};
+
+// ── OVERLAY ──
+const po=document.getElementById('po');
+document.getElementById('po-back').addEventListener('click',()=>{
+  po.classList.remove('open');
+  document.body.style.overflow='';
+});
+
+function openProject(id){
+  const d=PROJ[id];if(!d)return;
+  document.getElementById('po-lbl').textContent=d.lbl;
+  document.getElementById('po-title').textContent=d.title;
+  document.getElementById('po-role').textContent=d.role;
+  const ci=document.getElementById('po-cover-inner');
+  if(d.img){ci.style.cssText=`background-image:url('${BASE}${d.img}');background-size:cover;background-position:center;`;}
+  else{ci.style.cssText='background:linear-gradient(145deg,#0A1428,#040810);';}
+  let html=`<p>${d.desc.replace(/\n\n/g,'</p><p>')}</p>`;
+  if(d.nda)html+=`<span class="po-nda-note">This project is under NDA. Details available on request.</span>`;
+  if(d.link)html+=`<a href="${d.link.url}" target="_blank" class="po-link">${d.link.label} ↗</a>`;
+  if(d.video){
+    const vid=d.video.includes('youtu')? d.video.split('/').pop() : d.video;
+    html+=`<a href="https://youtu.be/${vid}" target="_blank" class="po-video-thumb">
+      <img src="https://img.youtube.com/vi/${vid}/maxresdefault.jpg" alt="Watch video" onerror="this.src='https://img.youtube.com/vi/${vid}/hqdefault.jpg'" style="width:100%;height:100%;object-fit:cover;display:block;"/>
+      <div class="po-play"><svg viewBox="0 0 24 24" fill="white" width="36" height="36"><polygon points="5,3 19,12 5,21"/></svg></div>
+    </a>`;
   }
-  </script>
+  if(d.sections)d.sections.forEach(s=>{html+=`<p class="po-sh">${s.head}</p><ul class="po-list">${s.items.map(i=>`<li>${i}</li>`).join('')}</ul>`;});
+  if(d.tags)html+=`<p class="po-sh">Stack & Tags</p><div class="po-tags">${d.tags.map(t=>`<span class="po-tag">${t}</span>`).join('')}</div>`;
+  document.getElementById('po-body').innerHTML=html;
+  po.classList.add('open');po.scrollTop=0;document.body.style.overflow='hidden';
+}
+
+document.querySelectorAll('.pcard').forEach(card=>{
+  card.addEventListener('click',()=>openProject(Number(card.dataset.id)));
+});
+</script>
 </body>
 </html>
