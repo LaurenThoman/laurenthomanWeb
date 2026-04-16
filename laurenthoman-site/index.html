@@ -23,7 +23,7 @@ body{background:var(--cream);color:var(--brown);font-family:'DM Sans',sans-serif
 .splash{position:fixed;border-radius:50%;border:1.5px solid var(--teal);pointer-events:none;z-index:9998;animation:splash .5s ease-out forwards;transform:translate(-50%,-50%);}
 @keyframes splash{0%{width:0;height:0;opacity:.6;}100%{width:44px;height:44px;opacity:0;}}
 
-/* ── INTRO ── */
+/* ── INTRO (fixed overlay, always on top until dismissed) ── */
 #intro{
   position:fixed;inset:0;z-index:1000;
   background:var(--cream);
@@ -53,7 +53,11 @@ body{background:var(--cream);color:var(--brown);font-family:'DM Sans',sans-serif
 @keyframes wipe{0%{clip-path:inset(0 0 0% 0);}100%{clip-path:inset(0 0 100% 0);}}
 @keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── HERO ── */
+/* ══════════════════════════════════════
+   THE PAGE — always exists below intro
+══════════════════════════════════════ */
+
+/* Hero */
 .hero{
   min-height:100vh;
   background:var(--cream);
@@ -71,7 +75,7 @@ body{background:var(--cream);color:var(--brown);font-family:'DM Sans',sans-serif
 .hero-desc-inner{display:flex;flex-direction:column;animation:descroll 9s ease-in-out infinite;}
 .hero-desc-item{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--br50);height:22px;line-height:22px;text-align:center;}
 
-/* ── ABOUT ── */
+/* ── ABOUT SECTION ── */
 .about-title-wrap{padding:0 60px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0;text-align:center;}
 .about-title{font-family:'Playfair Display',serif;font-size:clamp(44px,7.5vw,100px);font-weight:900;letter-spacing:-.04em;line-height:1;color:var(--brown);}
 .about-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 48px;max-height:0;overflow:hidden;transition:max-height .8s cubic-bezier(.16,1,.3,1),padding .8s cubic-bezier(.16,1,.3,1);}
@@ -108,10 +112,9 @@ body{background:var(--cream);color:var(--brown);font-family:'DM Sans',sans-serif
   font-weight:900;letter-spacing:-.04em;
   color:var(--brown);line-height:1;
 }
-
-/* ── WORK ── */
+/* ── WORK SECTION ── */
 .work-grid{width:100%;max-height:0;overflow:hidden;transition:max-height 1s cubic-bezier(.16,1,.3,1),padding .8s cubic-bezier(.16,1,.3,1);padding:0;}
-.work-grid.open{max-height:600px;padding:40px 0 48px;}
+.work-grid.open{max-height:600px;padding:24px 0 48px;}
 .work-scroll{
   display:flex;gap:16px;
   overflow-x:auto;overflow-y:visible;
@@ -171,8 +174,6 @@ body{background:var(--cream);color:var(--brown);font-family:'DM Sans',sans-serif
 .po-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);transition:background .2s;}
 .po-video-thumb:hover .po-play{background:rgba(0,0,0,.45);}
 .po-play svg{filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));}
-
-/* ── CONNECT ── */
 .con-wrap{display:grid;grid-template-columns:1fr 1fr;padding:0 60px;max-height:0;overflow:hidden;transition:max-height .8s cubic-bezier(.16,1,.3,1),padding .8s cubic-bezier(.16,1,.3,1);}
 .con-wrap.open{max-height:600px;padding:24px 60px 60px;}
 .con-l{padding-right:60px;border-right:1px solid rgba(46,31,20,.12);}
@@ -199,27 +200,24 @@ body{background:var(--cream);color:var(--brown);font-family:'DM Sans',sans-serif
 footer{padding:20px 60px;display:flex;justify-content:space-between;background:#F0AD80;}
 footer span{font-family:'DM Mono',monospace;font-size:10px;color:var(--brown);letter-spacing:.08em;opacity:.65;}
 
-/* ── MOBILE ── */
 @media(max-width:768px){
+  /* Hide cursor on touch devices */
   *{cursor:auto !important;}
   .cur{display:none !important;}
 
+  /* General padding */
   .hero{padding:60px 24px 48px;}
   .wsec{padding:32px 0;}
   footer{padding:14px 24px;flex-direction:column;gap:6px;text-align:center;}
 
+  /* About title */
   .about-title-wrap{padding:0 24px;}
 
-  /* wsec-1 must NOT clip overflow so about cards can scroll horizontally */
-  .wsec-1{overflow:visible;}
-  /* wsec-2 and wsec-3 keep overflow hidden for peaking prevention */
-  .wsec-2,.wsec-3{overflow:hidden;}
-
-  /* About grid: closed by default, scrollable row when open */
+  /* About grid — hidden until open, then horizontal scroll */
   .about-grid{
     display:flex !important;
     flex-direction:row !important;
-    overflow-x:hidden !important;
+    overflow-x:auto !important;
     overflow-y:hidden !important;
     scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
@@ -227,47 +225,46 @@ footer span{font-family:'DM Mono',monospace;font-size:10px;color:var(--brown);le
     gap:12px;
     padding:0 !important;
     max-height:0 !important;
-    width:100%;
   }
   .about-grid::-webkit-scrollbar{display:none;}
   .about-grid.open{
-    max-height:520px !important;
+    max-height:600px !important;
     padding:16px 24px 20px !important;
     overflow-x:auto !important;
-    overflow-y:hidden !important;
   }
   .about-block{
     flex-shrink:0;
-    width:80vw;
+    width:82vw;
     border-radius:16px;
     scroll-snap-align:start;
     min-height:auto;
     padding:24px 20px;
   }
 
-  /* Work */
+  /* Work scroll */
   .work-grid{padding:0 !important;}
-  .work-grid.open{padding:32px 0 48px !important;}
   .work-scroll{padding:0 24px 16px;}
   .pcard{width:72vw;}
 
-  /* Connect: closed by default */
+  /* Connect — stack vertically, fix overflow */
   .con-wrap{
     display:flex !important;
     flex-direction:column !important;
-    padding:0 24px !important;
-    max-height:0 !important;
-    overflow:hidden !important;
+    padding:0 24px 48px !important;
+    max-height:none !important;
+    overflow:visible !important;
   }
   .con-wrap.open{
-    max-height:2000px !important;
+    max-height:none !important;
     padding:16px 24px 48px !important;
-    overflow:visible !important;
   }
   .con-l{padding-right:0;border-right:none;border-bottom:1px solid rgba(46,31,20,.1);padding-bottom:24px;margin-bottom:24px;}
   .con-r{padding-left:0;}
   .con-hed{font-size:clamp(24px,8vw,40px);}
 
+  /* Prevent peeking on closed sections */
+  .wsec-1,.wsec-3{overflow:hidden;}
+  .wsec-2{overflow:hidden;}
   .po-nav,.po-meta,.po-body{padding-left:20px;padding-right:20px;}
   .po-cover{aspect-ratio:4/3;}
 }
@@ -329,9 +326,13 @@ footer span{font-family:'DM Mono',monospace;font-size:10px;color:var(--brown);le
       <path d="M0,34 C240,68 480,0 720,34 C960,68 1200,0 1440,34 L1440,68 L0,68 Z" fill="var(--cream)"/>
     </svg>
   </div>
+
+  <!-- About title — click to open -->
   <div class="about-title-wrap" id="about-toggle">
     <h2 class="about-title">About</h2>
   </div>
+
+  <!-- Four blocks -->
   <div class="about-grid" id="about-grid">
     <div class="about-block">
       <div class="ab-dot"></div>
@@ -368,8 +369,7 @@ footer span{font-family:'DM Mono',monospace;font-size:10px;color:var(--brown);le
   </div>
   <div class="about-title-wrap" id="work-toggle">
     <h2 class="wsec-title">Work</h2>
-  </div>
-  <div class="work-grid" id="work-grid">
+  </div>  <div class="work-grid" id="work-grid">
     <div class="work-scroll">
       <div class="pcard" data-id="0">
         <div class="pcard-img"><div class="pcard-bg" style="background-image:url('https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/neuragaze-cover.jpg');background-size:cover;background-position:center;"></div></div>
@@ -417,9 +417,11 @@ footer span{font-family:'DM Mono',monospace;font-size:10px;color:var(--brown);le
       <path d="M0,34 C240,68 480,0 720,34 C960,68 1200,0 1440,34 L1440,68 L0,68 Z" fill="var(--w2)"/>
     </svg>
   </div>
+
   <div class="about-title-wrap" id="connect-toggle">
     <h2 class="about-title">Connect</h2>
   </div>
+
   <div class="con-wrap" id="connect-grid">
     <div class="con-l">
       <h2 class="con-hed">Want to build<br>something <em>together?</em></h2>
@@ -442,7 +444,7 @@ footer span{font-family:'DM Mono',monospace;font-size:10px;color:var(--brown);le
         <div class="si"><span class="sname">itch.io</span><p class="sdesc">Playable projects</p></div>
         <span class="sarr">↗</span>
       </a>
-      <a href="https://github.com/LaurenThoman/laurenthomanWeb/blob/main/laurenthoman-site/assets/LAUREN_THOMAN_RESUME_.pdf" class="srow" target="_blank">
+      <a href="https://raw.githubusercontent.com/LaurenThoman/laurenthomanWeb/main/laurenthoman-site/assets/LAUREN_THOMAN_RESUME_.pdf" class="srow" target="_blank" download="LAUREN_THOMAN_RESUME.pdf">
         <span class="sn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>
         <div class="si"><span class="sname">Resume PDF</span><p class="sdesc">Download or view</p></div>
         <span class="sarr">↗</span>
