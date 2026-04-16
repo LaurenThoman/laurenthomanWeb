@@ -213,22 +213,28 @@ footer span{font-family:'DM Mono',monospace;font-size:10px;color:var(--brown);le
   /* About title */
   .about-title-wrap{padding:0 24px;}
 
-  /* About cards — horizontal scroll like Work */
+  /* About grid — hidden until open, then horizontal scroll */
   .about-grid{
-    display:flex;
-    flex-direction:row;
-    overflow-x:auto;
-    overflow-y:visible;
+    display:flex !important;
+    flex-direction:row !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
     scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
-    padding:0 24px 16px !important;
     gap:12px;
+    padding:0 !important;
+    max-height:0 !important;
   }
   .about-grid::-webkit-scrollbar{display:none;}
+  .about-grid.open{
+    max-height:600px !important;
+    padding:16px 24px 20px !important;
+    overflow-x:auto !important;
+  }
   .about-block{
     flex-shrink:0;
-    width:80vw;
+    width:82vw;
     border-radius:16px;
     scroll-snap-align:start;
     min-height:auto;
@@ -240,17 +246,25 @@ footer span{font-family:'DM Mono',monospace;font-size:10px;color:var(--brown);le
   .work-scroll{padding:0 24px 16px;}
   .pcard{width:72vw;}
 
-  /* Connect — stack vertically */
+  /* Connect — stack vertically, fix overflow */
   .con-wrap{
-    display:flex;
-    flex-direction:column;
-    padding:0 24px 40px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    padding:0 24px 48px !important;
+    max-height:none !important;
+    overflow:visible !important;
+  }
+  .con-wrap.open{
+    max-height:none !important;
+    padding:16px 24px 48px !important;
   }
   .con-l{padding-right:0;border-right:none;border-bottom:1px solid rgba(46,31,20,.1);padding-bottom:24px;margin-bottom:24px;}
   .con-r{padding-left:0;}
   .con-hed{font-size:clamp(24px,8vw,40px);}
 
-  /* Project overlay */
+  /* Prevent peeking on closed sections */
+  .wsec-1,.wsec-3{overflow:hidden;}
+  .wsec-2{overflow:hidden;}
   .po-nav,.po-meta,.po-body{padding-left:20px;padding-right:20px;}
   .po-cover{aspect-ratio:4/3;}
 }
